@@ -111,3 +111,11 @@
   text-align: center;
   margin-top: 1rem;
 }
+
+/* CSS untuk memotong teks */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;  /* Ubah lebar maksimal sesuai kebutuhan */
+}
