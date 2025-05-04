@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Logout;
+namespace App\Http\Controllers\Mobile\Logout;
 
 use Exception;
 use Illuminate\Http\Request;

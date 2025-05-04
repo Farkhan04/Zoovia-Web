@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\VerifikasiOTP;
+namespace App\Http\Controllers\Mobile\VerifikasiOTP;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

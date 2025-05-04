@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Login;
+namespace App\Http\Controllers\Mobile\Login;
 
 use App\Models\OtpCode;
 use App\Models\User;
@@ -70,15 +70,17 @@ class LoginController
             $token = $user->createToken('mobile-token')->plainTextToken;
 
             return response()->json([
-                'success' => true,
-                'message' => 'Login berhasil',
-                'user' => $user->only('name', 'email'),
-                'token' => $token, // Token Sanctum
+                'status' => 'success',
+                'data' => [
+                    'message' => 'Login Berhasil!',
+                    'user' => $user->only('id','name', 'email',),
+                    'token' => $token, // Token Sanctum
+                ],
             ]);
 
         } catch (Exception $e) {
             return response()->json([
-                'success' => false,
+                'status' => 'error',
                 'message' => 'Terjadi kesalahan server',
                 'error' => $e->getMessage()
             ], 500);
@@ -183,7 +185,7 @@ class LoginController
                         'email_verified_at' => now(),
                     ]
                 );
-                
+
                 // Buat API Token untuk Mobile
                 $token = $user->createToken('mobile-token')->plainTextToken;
 

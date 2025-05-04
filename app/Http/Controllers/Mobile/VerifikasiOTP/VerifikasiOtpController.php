@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\VerifikasiOTP;
+namespace App\Http\Controllers\Mobile\VerifikasiOTP;
 
 
 use App\Models\OtpCode;
@@ -39,7 +39,7 @@ class VerifikasiOtpController
         // Verifikasi email user
         $user->update(['email_verified_at' => now()]);
 
-        return response()->json(['message' => 'Verifikasi berhasil'], 200);
+        return response()->json(['status' => 'success', 'message' => 'Verifikasi berhasil'], 200);
     }
 
     public function resend(Request $request)
@@ -51,15 +51,8 @@ class VerifikasiOtpController
 
             if ($user == null) {
                 return response()->json([
-                    'success' => false,
-                    'pesan' => 'User tidak ditemukan',
-                ]);
-            }
-
-            if($user->email_verified_at != null){
-                return response()->json([
-                    'success' => false,
-                    'pesan' => 'Akunmu sudah terverifikasi!'
+                    'status' => 'fail',
+                    'message' => 'User tidak ditemukan',
                 ]);
             }
 
@@ -69,12 +62,13 @@ class VerifikasiOtpController
             Mail::to($user->email)->send(new EmailVerifikasi($otpCode, $user->name));
 
             return response()->json([
-                'success' => true,
-                'pesan' => "OTP berhasil diperbarui, silahkan cek email anda!"
+                'status' => 'success',
+                'data' => ['message' => "OTP berhasil diperbarui, silahkan cek email anda!"],
             ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'error' => $th->getMessage(),
+                'status' => 'error',
+                'message' => $th->getMessage(),
             ], );
         }
     }
