@@ -26,8 +26,6 @@ use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 */
 
 Route::middleware('api')->group(function () {
-
-
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/auth/google', [LoginController::class, 'loginWithGoogle']);

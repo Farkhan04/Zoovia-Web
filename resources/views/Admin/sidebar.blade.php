@@ -23,7 +23,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item active">
+        <li class="menu-item">
             <a href="dashboard" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-smile"></i>
                 <div class="text-truncate" data-i18n="Dashboard">Dashboard</div>
@@ -31,24 +31,24 @@
         </li>
 
         <!-- Artikel -->
-        <li class="menu-item active">
-            <a href="artikel.html" class="menu-link">
+        <li class="menu-item">
+            <a href="artikel" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book"></i>
                 <div class="text-truncate" data-i18n="Artikel">Artikel</div>
             </a>
         </li>
 
         <!-- Antrian -->
-        <li class="menu-item active">
-            <a href="antrian.html" class="menu-link">
+        <li class="menu-item">
+            <a href="antrian" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-sort-alt"></i>
                 <div class="text-truncate" data-i18n="Antrian">Antrian</div>
             </a>
         </li>
 
         <!-- Rekam Medis -->
-        <li class="menu-item active">
-            <a href="rekam-medis.html" class="menu-link">
+        <li class="menu-item">
+            <a href="rekam-medis" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-medical"></i>
                 <div class="text-truncate" data-i18n="Rekam Medis">Rekam Medis</div>
             </a>
