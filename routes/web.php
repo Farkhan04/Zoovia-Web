@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Mobile\Profile\ProfileControllerMobile;
 use App\Http\Controllers\Admin\ArtikelController;
 
 Route::get('/', function () {
@@ -18,6 +19,9 @@ Route::get('/index', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
 Route::get('/profile', [ProfileController::class, 'index']);
+
+//BUAT ROUTE MOBILE
+Route::middleware('auth:sanctum')->get('profile_photos/{filename}', [ProfileControllerMobile::class, 'getProfilePhoto']);
 Route::resource('/artikel', ArtikelController::class);
 
 
