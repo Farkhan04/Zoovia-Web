@@ -45,12 +45,12 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="profile">
-                                            <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
+                                            <i class="icon-base bx bx-user icon-md me-3"></i><span>Profil Saya</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>
+                                        <a class="dropdown-item" href="pengaturan">
+                                            <i class="icon-base bx bx-cog icon-md me-3"></i><span>Pengaturan</span>
                                         </a>
                                     </li>
 
@@ -59,7 +59,7 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="login">
-                                            <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Log Out</span>
+                                            <i class="icon-base bx bx-power-off icon-md me-3"></i><span>Keluar</span>
                                         </a>
                                     </li>
                                 </ul>
