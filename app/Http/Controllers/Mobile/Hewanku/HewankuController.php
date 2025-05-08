@@ -60,7 +60,7 @@ class HewankuController extends Controller
             // Validasi data input
             $validator = Validator::make($request->all(), [
                 'id_user' => 'required|exists:users,id', // Pastikan id_user ada dalam tabel users
-                'nama_hewan' => 'required|string|max:255',
+                'nama_hewan' => 'required|string|max:15',
                 'jenis_hewan' => 'required|string|max:255',
                 'ras' => 'required|string|max:255',
                 'umur' => 'required|integer|min:0',
@@ -89,7 +89,7 @@ class HewankuController extends Controller
                 // Menyimpan data hewan ke database
                 $hewan = Hewan::create([
                     'id_user' => $request->id_user,
-                    'nama_hewan' => $request->nama_hewan,
+                    'nama_hewan' => ucwords(strtolower($request->nama_hewan)),
                     'jenis_hewan' => $request->jenis_hewan,
                     'ras' => $request->ras,
                     'umur' => $request->umur,

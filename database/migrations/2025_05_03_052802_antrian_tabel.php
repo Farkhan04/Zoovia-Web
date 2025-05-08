@@ -15,6 +15,7 @@ return new class extends Migration
             $tabelAntrian->id();
             $tabelAntrian->string('nama');
             $tabelAntrian->text('keluhan');
+            $tabelAntrian->enum('status', ['menunggu', 'diproses', 'selesai'])->default('menunggu');
             $tabelAntrian->foreignId('id_layanan')->constrained('layanan')->onDelete('cascade');
             $tabelAntrian->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $tabelAntrian->foreignId('id_hewan')->constrained('hewan')->onDelete('cascade');
