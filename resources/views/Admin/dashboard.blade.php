@@ -100,8 +100,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p class="mb-1">Kelola Antrian</p>
-                                                <h4 class="card-title mb-3">$12,628</h4>
+                                                <p class="mb-1">Antrian Saat Ini</p>
+                                                <h4 class="card-title mb-3">1</h4>
                                                 <small class="text-success fw-medium"><i
                                                         class="icon-base bx bx-up-arrow-alt"></i> +72.80%</small>
                                             </div>
@@ -133,7 +133,7 @@
                                                     </div>
                                                 </div>
                                                 <p class="mb-1">Antrian Hari Ini</p>
-                                                <h4 class="card-title mb-3">$4,679</h4>
+                                                <h4 class="card-title mb-3">4</h4>
                                                 <small class="text-success fw-medium"><i
                                                         class="icon-base bx bx-up-arrow-alt"></i> +28.42%</small>
                                             </div>
@@ -171,7 +171,7 @@
                                                     </div>
                                                 </div>
                                                 <p class="mb-1">Antrian Selesai</p>
-                                                <h4 class="card-title mb-3">$2,456</h4>
+                                                <h4 class="card-title mb-3">2</h4>
                                                 <small class="text-danger fw-medium"><i
                                                         class="icon-base bx bx-down-arrow-alt"></i> -14.82%</small>
                                             </div>
@@ -201,8 +201,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p class="mb-1">Transactions</p>
-                                                <h4 class="card-title mb-3">$14,857</h4>
+                                                <p class="mb-1">Scan Barcode</p>
+                                                <h4 class="card-title mb-3"></h4>
                                                 <small class="text-success fw-medium"><i
                                                         class="icon-base bx bx-up-arrow-alt"></i> +28.14%</small>
                                             </div>

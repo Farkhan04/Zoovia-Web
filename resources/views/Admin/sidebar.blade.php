@@ -48,7 +48,7 @@
 
         <!-- Rekam Medis -->
         <li class="menu-item">
-            <a href="rekam-medis" class="menu-link">
+            <a href="rekammedis" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-medical"></i>
                 <div class="text-truncate" data-i18n="Rekam Medis">Rekam Medis</div>
             </a>
