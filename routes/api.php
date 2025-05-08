@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Mobile\Antrian\AntrianController;
 use App\Http\Controllers\Mobile\Dokter\DokterController;
 use App\Http\Controllers\Mobile\GantiPassword\GantiPasswordController;
 use App\Http\Controllers\Mobile\Hewanku\HewankuController;
@@ -53,6 +54,7 @@ Route::middleware('api')->group(function () {
             Route::post('/hewan/create', 'store');
             Route::get('/hewan/user/{id}', 'getByUserId');
             Route::post('/hewan/{id}', 'update');
+            Route::delete('/hewan/{id}', 'update');
         });
 
         Route::controller(DokterController::class)->group(function(){
@@ -67,6 +69,18 @@ Route::middleware('api')->group(function () {
             Route::post('/layanan/create', 'store');
             Route::post('/layanan/{id}', 'update');
             Route::delete('/layanan/{id}', 'destroy');
+        });
+
+        Route::controller(AntrianController::class)->group(function(){
+            Route::get('/antrian', 'index');
+            Route::post('/antrian/create', 'store');
+            Route::get('/antrian/{id}', 'show');
+            Route::post('/antrian/{id}', 'update');
+            Route::post('/antrian/{id}/status', 'updateStatus');
+            Route::delete('/antrian/{id}', 'destroy');
+            Route::get('/antrian/user/{userId}', 'getByUserId');
+            Route::get('/antrian/layanan/{layananId}', 'getByLayananId');
+            Route::get('/antrian/status/{status}', 'getByStatus');
         });
     });
 });

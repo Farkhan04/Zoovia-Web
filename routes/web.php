@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\TestEvent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -9,6 +10,10 @@ use App\Http\Controllers\Admin\ArtikelController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/testbroadcast', function(){
+    TestEvent::dispatch('ini pesanku');
 });
 
 
