@@ -26,7 +26,7 @@ class ProfileController extends Controller
             'address' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
         ]);
-
+ 
         $user = Auth::user();
 
         // Update tabel users

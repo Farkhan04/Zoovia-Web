@@ -97,7 +97,7 @@
                           <i class="icon-base bx bx-reset d-block d-sm-none"></i>
                           <span class="d-none d-sm-block">Atur Ulang</span>
                         </button>
-
+ 
                         <div><small style="font-size: 0.85em; color: #6c757d;">
                             Format: JPG, GIF, PNG · Maks: 800KB
                           </small>

@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\ArtikelController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+ 
 
 
 Route::get('/index', function () {
