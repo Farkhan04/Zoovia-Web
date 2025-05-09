@@ -1,61 +1,56 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Profile;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function edit()
     {
         $user = Auth::user();
-        return view('admin.profile', compact('user'));
+        $profile = $user->profile; // relasi ke user_profiles
+
+        return view('admin.profile', compact('user', 'profile'));
     }
+
     public function update(Request $request)
     {
-        $user = Auth::user();
-    
-        $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'email'     => 'required|email',
-            'NoTelepon' => 'nullable|string',
-            'Alamat'    => 'nullable|string',
-            'capital'   => 'nullable|string',
-            'city'      => 'nullable|string',
-            'uploadFoto' => 'nullable|image|max:2048',
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'no_hp' => 'nullable|string|max:20',
+            'address' => 'nullable|string',
+            'photo' => 'nullable|image|max:2048',
         ]);
-    
-        // Update user basic data
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->save();
-    
-        // Update or create profile data
-        $profile = $user->profile()->firstOrNew();
-    
-        $profile->phone = $validated['NoTelepon'] ?? $profile->phone;
-        $profile->address = $validated['Alamat'] ?? $profile->address;
-        $profile->capital = $validated['capital'] ?? $profile->capital;
-        $profile->city = $validated['city'] ?? $profile->city;
-    
-        // Handle photo
-        if ($request->hasFile('uploadFoto')) {
-            if ($profile->photo && Storage::disk('public')->exists($profile->photo)) {
-                Storage::disk('public')->delete($profile->photo);
+
+        $user = Auth::user();
+
+        // Update tabel users
+        $user->update([
+            'name' => $request->name ?? $user->name,
+            'no_hp' => $request->no_hp ?? $user->no_hp,
+        ]);
+
+        // Update atau buat tabel user_profiles
+        $profile = $user->profile ?? new UserProfile();
+        $profile->user_id = $user->id;
+        $profile->address = $request->address ?? $profile->address;
+
+        // Upload foto jika ada
+        if ($request->hasFile('photo')) {
+            if ($profile->photo) {
+                Storage::delete($profile->photo); // Hapus foto lama
             }
-    
-            $path = $request->file('uploadFoto')->store('photos', 'public');
-            $profile->photo = $path;
+
+            $profile->photo = $request->file('photo')->store('profile_photos', 'public');
         }
-    
-        $profile->user_id = $user->id; // Pastikan ada user_id
+
         $profile->save();
-    
-        return redirect()->back()->with('success', 'Profil berhasil diperbarui.');
+
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui');
     }
-    
 }

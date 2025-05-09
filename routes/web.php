@@ -17,7 +17,7 @@ Route::get('/index', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile', [ProfileController::class, 'edit']);
 Route::resource('/artikel', ArtikelController::class);
 
 
@@ -28,5 +28,5 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 // Rute untuk logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->get('/dashboard', function () {
-    return view('dashboard'); // Halaman dashboard
+    return view('admin.dashboard'); // Halaman dashboard
 })->name('dashboard');
