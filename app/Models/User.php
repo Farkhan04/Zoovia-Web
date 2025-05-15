@@ -5,47 +5,48 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
     protected $fillable = [
         'name',
         'email',
+        'no_hp',
         'password',
+        'google_id',
+        'role',
+        'email_verified_at'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed', // Laravel 8+ features hashed password storage
+        'password' => 'hashed',
     ];
 
-    /**
-     * Relasi antara User dan Hewan (Satu User bisa memiliki banyak Hewan)
-     */
-    public function hewan()
+    // Relasi ke OTP Codes
+    public function otpCodes()
     {
-        return $this->hasMany(Hewan::class, 'id_user');  // pastikan kolom 'id_user' ada di tabel 'hewan'
+        return $this->hasMany(OtpCode::class);
     }
+
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class, 'id_user');
+    }
+
+    // Relasi ke Profile
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    
 }

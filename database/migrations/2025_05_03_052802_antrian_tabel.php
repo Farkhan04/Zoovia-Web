@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('antrian', function (Blueprint $tabelAntrian) {
+        Schema::create('antrian', function(Blueprint $tabelAntrian){
             $tabelAntrian->id();
             $tabelAntrian->string('nama');
             $tabelAntrian->text('keluhan');
@@ -19,6 +19,7 @@ return new class extends Migration
             $tabelAntrian->foreignId('id_layanan')->constrained('layanan')->onDelete('cascade');
             $tabelAntrian->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $tabelAntrian->foreignId('id_hewan')->constrained('hewan')->onDelete('cascade');
+            $tabelAntrian->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('antrian');
+        Schema::dropIfExists(table: 'antrian');
     }
 };

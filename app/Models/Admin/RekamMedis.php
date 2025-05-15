@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use App\Models\Hewan;
+use App\Models\Antrian;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,7 @@ class RekamMedis extends Model
         'id_dokter',
         'deskripsi',
         'tanggal',
+        'id_antrian', // Tambahkan ini
     ];
 
     // Definisikan relasi dengan model Hewan
@@ -27,5 +29,10 @@ class RekamMedis extends Model
     public function dokter()
     {
         return $this->belongsTo(Dokter::class, 'id_dokter');
+    }
+
+    public function antrian()
+    {
+        return $this->belongsTo(Antrian::class, 'id_antrian');
     }
 }

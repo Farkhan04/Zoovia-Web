@@ -9,6 +9,7 @@ class Hewan extends Model
 {
     use HasFactory;
 
+
     // Kolom yang dapat diisi
     protected $fillable = [
         'foto_hewan',

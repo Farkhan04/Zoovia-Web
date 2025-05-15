@@ -34,6 +34,9 @@
 
     <!-- Custom styles -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
 </head>
 
 <body>
@@ -68,19 +71,21 @@
                                 <!-- Button Tambah Artikel & search -->
                                 <div class="d-flex justify-content-between align-items-center mx-3 mt-4 mb-3">
                                     <!-- Search kiri -->
-                                    <form action="{{ route('artikel.index') }}" method="GET" class="d-flex" style="max-width: 300px;">
-                                        <input type="text" name="search" class="form-control me-2" placeholder="Cari artikel..." value="{{ request('search') }}">
+                                    <form action="{{ route('admin.artikel.index') }}" method="GET" class="d-flex"
+                                        style="max-width: 300px;">
+                                        <input type="text" name="search" class="form-control me-2"
+                                            placeholder="Cari artikel..." value="{{ request('search') }}">
                                         <button type="submit" class="btn btn-outline-primary">
                                             <i class="bx bx-search"></i>
                                         </button>
                                     </form>
-                                
+
                                     <!-- Tambah Artikel kanan -->
-                                    <a href="{{ route('artikel.create') }}" class="btn btn-primary">
+                                    <a href="{{ route('admin.artikel.create') }}" class="btn btn-primary">
                                         <i class="bx bx-plus"></i> Tambah Artikel
                                     </a>
                                 </div>
-                                
+
 
 
                                 <div class="table-responsive text-nowrap">
@@ -92,7 +97,7 @@
                                                 <th>Deskripsi</th>
                                                 <th>Penulis</th>
                                                 <th>Tanggal</th>
-                                                <th></th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-border-bottom-0">
@@ -101,7 +106,8 @@
                                                     <td>
                                                         <!-- Menampilkan thumbnail jika ada -->
                                                         @if ($artikel->thumbnail)
-                                                            <img src="{{ asset('storage/thumbnails/' . $artikel->thumbnail) }}" alt="Thumbnail" width="150">
+                                                            <img src="{{ asset('storage/thumbnails/' . $artikel->thumbnail) }}"
+                                                                alt="Thumbnail" width="150">
                                                         @else
                                                             <p>No thumbnail available</p>
                                                         @endif
@@ -109,40 +115,83 @@
                                                     <td>{{ $artikel->judul }}</td>
                                                     <td class="truncate" title="{{ $artikel->deskripsi }}">
                                                         {{ \Illuminate\Support\Str::limit($artikel->deskripsi, 100, '...') }}
-                                                        <a href="{{ route('artikel.show', $artikel->id) }}"
+                                                        <a href="{{ route('admin.artikel.show', $artikel->id) }}"
                                                             class="text-primary">Baca lebih</a>
                                                     </td>
                                                     <td>{{ $artikel->penulis }}</td>
-                                                    <td>{{ $artikel->tanggal }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($artikel->tanggal)->format('d-m-Y') }}
+                                                    </td><!-- Tanggal -->
                                                     <td>
-                                                        <div class="dropdown">
-                                                            <button class="btn p-0 dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                        <div class="d-flex justify-content-center">
+                                                            <!-- Tombol Lihat -->
+                                                            <button type="button" class="btn btn-primary btn-sm me-2"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#detailModal{{ $artikel->id }}">
+                                                                <i class="bi bi-eye"></i> Lihat
                                                             </button>
-                                                            <div class="dropdown-menu">
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('artikel.edit', $artikel->id) }}">
-                                                                    <i class="bx bx-edit-alt me-1"></i> Edit
-                                                                </a>
-                                                                <form
-                                                                    action="{{ route('artikel.destroy', $artikel->id) }}"
-                                                                    method="POST" style="display:inline;">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item"
-                                                                        onclick="return confirm('Yakin ingin menghapus artikel ini?')">
-                                                                        <i class="bx bx-trash me-1"></i> Delete
-                                                                    </button>
-                                                                </form>
-                                                            </div>
+
+                                                            <!-- Tombol Edit -->
+                                                            <a href="{{ route('admin.artikel.edit', $artikel->id) }}"
+                                                                class="btn btn-info btn-sm me-2">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+
+                                                            <!-- Tombol Delete -->
+                                                            <form
+                                                                action="{{ route('admin.artikel.destroy', $artikel->id) }}"
+                                                                method="POST" style="display:inline;">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </td>
+
+
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- Modal Detail Artikel -->
+                                <div class="modal fade" id="detailModal{{ $artikel->id }}" tabindex="-1"
+                                    aria-labelledby="detailModalLabel{{ $artikel->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="detailModalLabel{{ $artikel->id }}">Detail
+                                                    Artikel</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>{{ $artikel->judul }}</h5>
+                                                <p><strong>Penulis:</strong> {{ $artikel->penulis }}</p>
+                                                <p><strong>Tanggal:</strong>
+                                                    {{ \Carbon\Carbon::parse($artikel->tanggal)->format('d-m-Y') }}</p>
+                                                <p><strong>Deskripsi:</strong></p>
+                                                <p>{{ $artikel->deskripsi }}</p>
+
+                                                @if ($artikel->thumbnail)
+                                                    <img src="{{ asset('storage/thumbnails/' . $artikel->thumbnail) }}"
+                                                        alt="Thumbnail" width="200">
+                                                @else
+                                                    <p>No thumbnail available</p>
+                                                @endif
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pagination -->
+                                {{ $artikels->links() }}
                             </div>
                             <!-- /Artikel Table -->
                         </div>
