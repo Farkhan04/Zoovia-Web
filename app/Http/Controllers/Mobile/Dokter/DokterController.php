@@ -67,7 +67,7 @@ class DokterController extends Controller
                 // Menangani upload foto dokter
                 if ($request->hasFile('foto_dokter')) {
                     $fotoPath = $request->file('foto_dokter')->store('dokter_photos', 'public');
-                    $fotoUrl = "storage/".$fotoPath;
+                    $fotoUrl = "storage/" . $fotoPath;
                 } else {
                     $fotoUrl = null; // Jika tidak ada foto, maka null
                 }
@@ -144,7 +144,7 @@ class DokterController extends Controller
 
                     // Menyimpan foto baru
                     $fotoPath = $request->file('foto_dokter')->store('dokter_photos', 'public');
-                    $fotoUrl = "storage/".$fotoPath;
+                    $fotoUrl = "storage/" . $fotoPath;
                     $dataToUpdate['foto_dokter'] = $fotoUrl; // Update path foto
                 }
 
@@ -201,6 +201,34 @@ class DokterController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Dokter tidak ditemukan atau terjadi kesalahan.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Format yang diminta tidak valid.',
+        ], 400);
+    }
+
+    public function getByLayananId(Request $request, $layananId)
+    {
+        if ($request->expectsJson()) {
+            try {
+                $dokters = Dokter::with('layanan')
+                    ->where('id_layanan', $layananId)
+                    ->get();
+
+                return response()->json([
+                    'success' => true,
+                    'data' => $dokters,
+                    'message' => 'Daftar dokter untuk layanan berhasil diambil.',
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Terjadi kesalahan saat mengambil data dokter.',
                     'error' => $e->getMessage(),
                 ], 500);
             }

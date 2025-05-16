@@ -10,6 +10,34 @@ use Illuminate\Support\Facades\Validator;
 
 class LayananController extends Controller
 {
+
+
+    public function show(Request $request, $id)
+    {
+        if ($request->expectsJson()) {
+            try {
+                $layanan = Layanan::with('dokters')->findOrFail($id);
+                
+                return response()->json([
+                    'success' => true,
+                    'data' => $layanan,
+                    'message' => 'Detail layanan berhasil diambil.',
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Layanan tidak ditemukan atau terjadi kesalahan.',
+                    'error' => $e->getMessage(),
+                ], 404);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Format yang diminta tidak valid.',
+        ], 400);
+    }
+
     /**
      * Menampilkan daftar layanan.
      *
@@ -20,7 +48,7 @@ class LayananController extends Controller
     {
         if ($request->expectsJson()) {
             try {
-                $layanan = Layanan::all(); // Mengambil semua data layanan
+                $layanan = Layanan::with('dokters')->get(); // Mengambil semua data layanan
                 return response()->json([
                     'success' => true,
                     'data' => $layanan,
