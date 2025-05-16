@@ -5,6 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Antrian;
+use App\Models\Admin\RekamMedis;
+use App\Observers\AntrianObserver;
+use App\Observers\RekamMedisObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+                // Mendaftarkan observer
+        Antrian::observe(AntrianObserver::class);
+        RekamMedis::observe(RekamMedisObserver::class);
     }
 }

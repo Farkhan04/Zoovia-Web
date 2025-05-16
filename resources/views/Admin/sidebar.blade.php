@@ -32,11 +32,12 @@
 
         <!-- Artikel -->
         <li class="menu-item">
-            <a href="artikel" class="menu-link">
+            <a href="{{ route('admin.artikel.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-book"></i>
                 <div class="text-truncate" data-i18n="Artikel">Artikel</div>
             </a>
         </li>
+
 
         <!-- Antrian -->
         <li class="menu-item">
@@ -48,7 +49,7 @@
 
         <!-- Rekam Medis -->
         <li class="menu-item">
-            <a href="rekam-medis" class="menu-link">
+            <a href="{{ route('admin.rekammedis.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-medical"></i>
                 <div class="text-truncate" data-i18n="Rekam Medis">Rekam Medis</div>
             </a>

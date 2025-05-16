@@ -41,7 +41,7 @@
                                     <h5 class="card-header">Edit Artikel</h5>
                                     <div class="card-body">
                                         <!-- Form edit -->
-                                        <form action="{{ route('artikel.update', $artikel->id) }}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.artikel.update', $artikel->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <div class="mb-3">

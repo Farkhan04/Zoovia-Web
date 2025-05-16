@@ -44,13 +44,13 @@
                                         <div class="dropdown-divider my-1"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="profile">
+                                        <a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
                                             <i class="icon-base bx bx-user icon-md me-3"></i><span>My Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="icon-base bx bx-cog icon-md me-3"></i><span>Settings</span>
+                                        <a class="dropdown-item" href="{{ route('admin.gantisandi') }}">
+                                            <i class="icon-base bx bx-cog icon-md me-3"></i><span>Ganti Sandi</span>
                                         </a>
                                     </li>
 

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,25 +26,16 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-
-    // Relasi ke OTP Codes
-    public function otpCodes()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        return $this->hasMany(OtpCode::class);
-    }
-
-    public function antrians()
-    {
-        return $this->hasMany(Antrian::class, 'id_user');
-    }
-
-    // Relasi ke Profile
-    public function profile()
-    {
-        return $this->hasOne(UserProfile::class);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }

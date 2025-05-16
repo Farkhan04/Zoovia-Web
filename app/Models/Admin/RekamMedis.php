@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
+use App\Models\Hewan;
+use App\Models\Antrian;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,36 +11,28 @@ class RekamMedis extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika tidak menggunakan plural konvensi
-    protected $table = 'rekam_medis';
-
-    // Tentukan kolom-kolom yang dapat diisi (Mass Assignment)
     protected $fillable = [
         'id_hewan',
         'id_dokter',
         'deskripsi',
+        'tanggal',
+        'id_antrian', // Tambahkan ini
     ];
 
-    /**
-     * Relasi ke model Hewan.
-     */
+    // Definisikan relasi dengan model Hewan
     public function hewan()
     {
         return $this->belongsTo(Hewan::class, 'id_hewan');
     }
 
-    /**
-     * Relasi ke model Dokter.
-     */
+    // Definisikan relasi dengan model Dokter
     public function dokter()
     {
         return $this->belongsTo(Dokter::class, 'id_dokter');
     }
 
-
-    // Relasi dengan tabel Antrian
     public function antrian()
     {
-        return $this->belongsTo(Antrian::class);
+        return $this->belongsTo(Antrian::class, 'id_antrian');
     }
 }

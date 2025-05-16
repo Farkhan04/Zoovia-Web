@@ -47,7 +47,7 @@
 
                                 <div class="card-body">
                                     <!-- Form untuk menambah artikel -->
-                                    <form action="{{ route('artikel.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('admin.artikel.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="judul" class="form-label">Judul Artikel</label>

@@ -15,6 +15,8 @@ return new class extends Migration
             $tableDokter->id();
             $tableDokter->string('foto_dokter')->nullable();
             $tableDokter->string('nama_dokter');
+            $tableDokter->string('alamat'); // Spesialisasi dokter
+            $tableDokter->string('no_telepon')->nullable(); // Nomor telepon dokter
             $tableDokter->foreignId('id_layanan')->nullable()->constrained('layanan')->onUpdate('cascade')->nullOnDelete();
             $tableDokter->timestamps();
         });
