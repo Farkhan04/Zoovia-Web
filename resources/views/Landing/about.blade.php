@@ -156,21 +156,21 @@
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery1.png' }});">
+                                        style="background-image: url({{"Landing/assets/img/gallery/gallery1.png"}});">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery2.png' }});">
+                                        style="background-image: url({{"Landing/assets/img/gallery/gallery2.png"}});">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery3.png' }});">
+                                        style="background-image: url({{"Landing/assets/img/gallery/gallery3.png"}});">
                                     </div>
                                 </div>
                             </div>
@@ -189,14 +189,14 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery5.png' }});">
+                                        style="background-image: url({{"Landing/assets/img/gallery/gallery5.png"}});">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery6.png' }});">
+                                        style="background-image: url({{"Landing/assets/img/gallery/gallery6.png"}});">
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +214,7 @@
                         <div class="gallery-box">
                             <div class="single-gallery">
                                 <div class="gallery-img "
-                                    style="background-image: url({{ 'Landing/assets/img/gallery/gallery1.png' }});">
+                                    style="background-image: url({{"Landing/assets/img/gallery/gallery1.png"}});">
                                 </div>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
                         <div class="gallery-box">
                             <div class="single-gallery">
                                 <div class="gallery-img "
-                                    style="background-image: url({{ 'Landing/assets/img/gallery/gallery2.png' }});">
+                                    style="background-image: url({{"Landing/assets/img/gallery/gallery2.png"}});">
                                 </div>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                         <div class="gallery-box">
                             <div class="single-gallery">
                                 <div class="gallery-img "
-                                    style="background-image: url({{ 'Landing/assets/img/gallery/gallery3.png' }});">
+                                    style="background-image: url({{"Landing/assets/img/gallery/gallery3.png"}});">
                                 </div>
                             </div>
                         </div>
@@ -250,7 +250,7 @@
                         <div class="gallery-box">
                             <div class="single-gallery">
                                 <div class="gallery-img "
-                                    style="background-image: url({{ 'Landing/assets/img/gallery/gallery5.png' }});">
+                                    style="background-image: url({{"Landing/assets/img/gallery/gallery5.png"}});">
                                 </div>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
                         <div class="gallery-box">
                             <div class="single-gallery">
                                 <div class="gallery-img "
-                                    style="background-image: url({{ 'Landing/assets/img/gallery/gallery6.png' }});">
+                                    style="background-image: url({{"Landing/assets/img/gallery/gallery6.png"}});">
                                 </div>
                             </div>
                         </div>

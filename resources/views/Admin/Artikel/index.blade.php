@@ -104,9 +104,9 @@
                                             @foreach ($artikels as $artikel)
                                                 <tr>
                                                     <td>
-                                                        <!-- Menampilkan thumbnail jika ada -->
+                                                        <!-- Menampilkan thumbnail dengan accessor -->
                                                         @if ($artikel->thumbnail)
-                                                            <img src="{{ asset('storage/thumbnails/' . $artikel->thumbnail) }}"
+                                                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}"
                                                                 alt="Thumbnail" width="150">
                                                         @else
                                                             <p>No thumbnail available</p>
@@ -119,8 +119,7 @@
                                                             class="text-primary">Baca lebih</a>
                                                     </td>
                                                     <td>{{ $artikel->penulis }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($artikel->tanggal)->format('d-m-Y') }}
-                                                    </td><!-- Tanggal -->
+                                                    <td>{{ \Carbon\Carbon::parse($artikel->tanggal)->format('d-m-Y') }}</td>
                                                     <td>
                                                         <div class="d-flex justify-content-center">
                                                             <!-- Tombol Lihat -->
@@ -149,8 +148,6 @@
                                                             </form>
                                                         </div>
                                                     </td>
-
-
                                                 </tr>
                                             @endforeach
                                         </tbody>

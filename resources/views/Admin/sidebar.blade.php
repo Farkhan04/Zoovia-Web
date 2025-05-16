@@ -42,15 +42,15 @@
         <!-- Antrian -->
         <li class="menu-item">
             <a href="antrian" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-sort-alt"></i>
+                <i class="menu-icon tf-icons bx bx-group"></i>
                 <div class="text-truncate" data-i18n="Antrian">Antrian</div>
             </a>
         </li>
 
         <!-- Rekam Medis -->
         <li class="menu-item">
-            <a href="{{ route('admin.rekammedis.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-medical"></i>
+            <a href="rekam-medis.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-plus-medical"></i>
                 <div class="text-truncate" data-i18n="Rekam Medis">Rekam Medis</div>
             </a>
         </li>
