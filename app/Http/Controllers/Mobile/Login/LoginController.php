@@ -73,7 +73,7 @@ class LoginController
                 'status' => 'success',
                 'data' => [
                     'message' => 'Login Berhasil!',
-                    'user' => $user->only('id','name', 'email',),
+                    'user' => $user->only('id', 'name', 'email', ),
                     'token' => $token, // Token Sanctum
                 ],
             ]);
@@ -176,11 +176,12 @@ class LoginController
                 if ($payload === false) {
                     return response()->json(['error' => 'Invalid Google token'], 401);
                 }
-
+                Log::error($payload);
                 // buat atau cari user dengan email yang sama
                 $user = User::firstOrCreate(
                     ['google_id' => $payload['sub']],
-                    [
+                    [   
+                        'name' => $payload['name'],
                         'email' => $payload['email'],
                         'email_verified_at' => now(),
                     ]

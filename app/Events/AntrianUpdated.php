@@ -4,8 +4,6 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -17,6 +15,7 @@ class AntrianUpdated implements ShouldBroadcast
 
     public $action;
     public $antrian;
+    public $queueSummary;
 
     /**
      * Create a new event instance.
@@ -26,10 +25,11 @@ class AntrianUpdated implements ShouldBroadcast
      * @return void
      */
 
-    public function __construct($action, $antrian)
+    public function __construct($action, $antrian, $queueSummary)
     {
         $this->action = $action;
         $this->antrian = $antrian;
+        $this->queueSummary = $queueSummary;
     }
 
     /**

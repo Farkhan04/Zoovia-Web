@@ -12,11 +12,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/testbroadcast', function(){
-    TestEvent::dispatch('ini pesanku');
-});
-
-
 
 Route::get('/index', function () {
     return view('Landing.index');
