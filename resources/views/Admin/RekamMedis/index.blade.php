@@ -1,291 +1,406 @@
-<!doctype html>
-<html lang="en" class="layout-menu-fixed layout-compact" data-assets-path="{{ asset('Admin/assets/') }}"
-    data-template="vertical-menu-template-free">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rekam Medis</title>
-    <meta name="description" content="" />
+@section('title', 'Rekam Medis')
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('Admin/assets/img/favicon/favicon.ico') }}" />
+@section('content')
+<!-- Page header -->
+<div class="page-header">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="fw-bold"><i class="bx bx-plus-medical me-2 text-primary"></i>Rekam Medis Hewan</h4>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRekamMedisModal">
+            <i class="bx bx-plus me-1"></i> Tambah Rekam Medis
+        </button>
+    </div>
+</div>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
+<div class="row">
+    <!-- Search & Filter Card -->
+    <div class="col-12 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ route('admin.rekammedis.index') }}" method="GET" class="row g-3">
+                    <div class="col-md-8">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-search"></i></span>
+                            <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan nama hewan atau jenis..." value="{{ request('search') }}">
+                            <button type="submit" class="btn btn-primary">Cari</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select name="filter" class="form-select">
+                            <option value="">Semua Jenis Hewan</option>
+                            <option value="Kucing" {{ request('filter') == 'Kucing' ? 'selected' : '' }}>Kucing</option>
+                            <option value="Anjing" {{ request('filter') == 'Anjing' ? 'selected' : '' }}>Anjing</option>
+                            <option value="Burung" {{ request('filter') == 'Burung' ? 'selected' : '' }}>Burung</option>
+                            <option value="Lainnya" {{ request('filter') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/fonts/iconify-icons.css') }}" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/css/core.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/css/demo.css') }}" />
-
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Helpers -->
-    <script src="{{ asset('Admin/assets/vendor/js/helpers.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/config.js') }}"></script>
-
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
-</head>
-
-<body>
-
-    <!-- Menambahkan CDN jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <!-- Menambahkan CDN Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-
-            <!-- Sidebar -->
-            @include('Admin.sidebar')
-
-            <!-- Page Content -->
-            <div class="layout-page">
-                <!-- Navbar -->
-                @include('Admin.navbar')
-
-                <!-- Content wrapper -->
-                <div class="content-wrapper">
-                    <div class="container-xxl flex-grow-1 container-p-y">
-                        <div class="row">
-
-                            <!-- Flash Message -->
-                            @if (session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-
-                            <!-- Artikel Table -->
-                            <!-- Tabel Rekam Medis -->
-                            <div class="card mt-3">
-                                <!-- In your blade template, replace the current filter buttons with this code -->
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Rekam Medis</h5>
-
-                                    <!-- Filter Buttons with Active State -->
-                                    <div>
-                                        <a href="{{ route('admin.rekammedis.index', ['status' => 'diproses']) }}"
-                                            class="btn {{ request('status') == 'diproses' || request('status') == null ? 'btn-primary' : 'btn-outline-primary' }}">
-                                            Diproses
-                                            @if (request('status') == 'diproses' || request('status') == null)
-                                                <i class="bi bi-check-circle-fill ms-1"></i>
-                                            @endif
-                                        </a>
-                                        <a href="{{ route('admin.rekammedis.index', ['status' => 'selesai']) }}"
-                                            class="btn {{ request('status') == 'selesai' ? 'btn-success' : 'btn-outline-success' }}">
-                                            Selesai
-                                            @if (request('status') == 'selesai')
-                                                <i class="bi bi-check-circle-fill ms-1"></i>
-                                            @endif
-                                        </a>
-                                    </div>
-                                </div>
-
-                                <!--  Form Pencarian  -->
-                                <!-- Search kiri -->
-                                <form action="{{ route('admin.artikel.index') }}" method="GET" class="d-flex"
-                                    style="max-width: 300px; margin: 20px;">
-                                    <input type="text" name="search" class="form-control me-2"
-                                        placeholder="Cari artikel..." value="{{ request('search') }}">
-                                    <button type="submit" class="btn btn-outline-primary">
-                                        <i class="bx bx-search"></i>
-                                    </button>
-                                </form>
-
-                                <div class="table-responsive text-nowrap">
-                                    <table class="table">
-                                        <thead class="table-dark">
-                                            <tr>
-                                                <th>Nama Hewan</th>
-                                                <th>Nama Dokter</th>
-                                                <th>Deskripsi</th>
-                                                <th>Tanggal</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0">
-                                            <!-- Find this section in your blade template file -->
-                                            @foreach ($rekamMedis as $rekam)
-                                                <tr>
-                                                    <td>{{ $rekam->hewan->nama_hewan }}</td>
-                                                    <td>{{ $rekam->dokter->nama_dokter }}</td>
-                                                    <td>{{ $rekam->deskripsi }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($rekam->tanggal)->format('d-m-Y') }}
-                                                    </td>
-                                                    <td>{{ $rekam->antrian->status }}</td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            <!-- Edit Button -->
-                                                            <a href="#" class="btn btn-info btn-sm me-2"
-                                                                onclick="editRekam('{{ $rekam->id }}', '{{ $rekam->deskripsi }}', '{{ \Carbon\Carbon::parse($rekam->tanggal)->format('Y-m-d') }}')"
-                                                                data-bs-toggle="modal" data-bs-target="#editModal">
-                                                                <i class="bi bi-pencil"></i>
-                                                            </a>
-
-                                                            <!-- Delete Button -->
-                                                            <form
-                                                                action="{{ route('admin.rekammedis.destroy', $rekam->id) }}"
-                                                                method="POST" class="d-inline">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                                    <i class="bi bi-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- /Artikel Table -->
-
-                            <!-- Modal Edit Rekam Medis -->
-                            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
-                                aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="editModalLabel">Edit Rekam Medis</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+    <!-- Rekam Medis Table Card -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th width="5%"></th>
+                                <th width="20%">Nama Hewan</th>
+                                <th width="15%">Jenis Hewan</th>
+                                <th width="10%">Umur</th>
+                                <th width="15%">Jumlah Rekam</th>
+                                <th width="20%">Terakhir Periksa</th>
+                                <th width="15%">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($hewans as $hewan)
+                                <tr>
+                                    <td class="text-center">
+                                        <button class="btn btn-icon btn-sm btn-text-secondary rounded-pill toggle-expand-btn" data-hewan-id="{{ $hewan->id }}">
+                                            <i class="bx bx-chevron-down toggle-icon" id="toggle-icon-{{ $hewan->id }}"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-sm me-3">
+                                                <div class="avatar-initial rounded-circle bg-label-{{ $hewan->jenis_hewan == 'Kucing' ? 'warning' : ($hewan->jenis_hewan == 'Anjing' ? 'success' : 'info') }}">
+                                                    {{ substr($hewan->nama_hewan, 0, 1) }}
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h6 class="mb-0 text-nowrap">{{ $hewan->nama_hewan }}</h6>
+                                                <small class="text-muted">{{ $hewan->user->name ?? 'Tanpa Pemilik' }}</small>
+                                            </div>
                                         </div>
-                                        <form action="{{ route('admin.rekammedis.update', 'id') }}" method="POST"
-                                            id="editForm">
-                                            @csrf
-                                            @method('PUT')
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="deskripsi" class="form-label">Deskripsi</label>
-                                                    <textarea name="deskripsi" id="deskripsi" class="form-control" required></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="tanggal" class="form-label">Tanggal</label>
-                                                    <input type="date" name="tanggal" id="tanggal"
-                                                        class="form-control" required>
-                                                </div>
-                                                <input type="hidden" name="rekam_id" id="rekam_id">
+                                    </td>
+                                    <td><span class="badge bg-label-{{ $hewan->jenis_hewan == 'Kucing' ? 'warning' : ($hewan->jenis_hewan == 'Anjing' ? 'success' : 'info') }}">{{ $hewan->jenis_hewan }}</span></td>
+                                    <td>{{ $hewan->umur }} tahun</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="fw-semibold me-2">{{ $hewan->rekamMedis->count() }}</span>
+                                            <div class="progress w-75" style="height: 8px;">
+                                                <div class="progress-bar bg-primary" role="progressbar" 
+                                                     style="width: {{ min($hewan->rekamMedis->count() * 10, 100) }}%" 
+                                                     aria-valuenow="{{ $hewan->rekamMedis->count() }}" 
+                                                     aria-valuemin="0" aria-valuemax="10"></div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <!-- Make sure both attributes are included for maximum compatibility -->
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal" data-dismiss="modal"
-                                                    id="btnCancelModal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @if($hewan->rekamMedis->count() > 0)
+                                            <div class="d-flex align-items-center">
+                                                <i class="bx bx-calendar me-1 text-primary"></i>
+                                                <span>{{ \Carbon\Carbon::parse($hewan->rekamMedis->first()->tanggal)->format('d M Y') }}</span>
                                             </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                                        @else
+                                            <span class="badge bg-label-secondary">Belum Pernah</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{ route('admin.rekammedis.show', $hewan->id) }}" class="btn btn-icon btn-sm btn-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+                                                <i class="bx bx-show"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-icon btn-sm btn-success" onclick="tambahRekamMedis({{ $hewan->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Rekam Medis">
+                                                <i class="bx bx-plus"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="expandable-row" id="medical-records-{{ $hewan->id }}">
+                                    <td colspan="7" class="p-0">
+                                        <div class="p-3 bg-light-primary border-start border-primary border-3">
+                                            @if($hewan->rekamMedis->count() > 0)
+                                                <h6 class="mb-3">Riwayat Rekam Medis</h6>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-sm mb-3">
+                                                        <thead class="table-light">
+                                                            <tr>
+                                                                <th>Tanggal</th>
+                                                                <th>Dokter</th>
+                                                                <th>Deskripsi</th>
+                                                                <th width="15%">Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($hewan->rekamMedis as $rekam)
+                                                                <tr>
+                                                                    <td>{{ \Carbon\Carbon::parse($rekam->tanggal)->format('d M Y') }}</td>
+                                                                    <td>{{ $rekam->dokter->nama_dokter }}</td>
+                                                                    <td>{{ \Illuminate\Support\Str::limit($rekam->deskripsi, 100) }}</td>
+                                                                    <td>
+                                                                        <div class="d-flex">
+                                                                            <button class="btn btn-icon btn-sm btn-info me-1"
+                                                                                onclick="editRekam('{{ $rekam->id }}', '{{ $rekam->deskripsi }}', '{{ \Carbon\Carbon::parse($rekam->tanggal)->format('Y-m-d') }}')"
+                                                                                data-bs-toggle="modal" data-bs-target="#editModal">
+                                                                                <i class="bx bx-edit-alt"></i>
+                                                                            </button>
+                                                                            <form action="{{ route('admin.rekammedis.destroy', $rekam->id) }}" method="POST" class="d-inline delete-form">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button type="button" class="btn btn-icon btn-sm btn-danger btn-delete">
+                                                                                    <i class="bx bx-trash"></i>
+                                                                                </button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="text-end">
+                                                    <a href="{{ route('admin.rekammedis.show', $hewan->id) }}" class="btn btn-primary btn-sm">
+                                                        <i class="bx bx-file me-1"></i> Lihat Detail Lengkap
+                                                    </a>
+                                                </div>
+                                            @else
+                                                <div class="text-center py-5">
+                                                    <div class="mb-3">
+                                                        <i class="bx bx-file-blank text-secondary" style="font-size: 4rem;"></i>
+                                                    </div>
+                                                    <h5 class="mb-2">Belum Ada Catatan Medis</h5>
+                                                    <p class="mb-3 text-muted">Silakan tambahkan rekam medis untuk hewan ini.</p>
+                                                    <button type="button" class="btn btn-primary" onclick="tambahRekamMedis({{ $hewan->id }})">
+                                                        <i class="bx bx-plus me-1"></i> Tambah Rekam Medis
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                
+                @if(count($hewans) == 0)
+                <div class="text-center py-5">
+                    <div class="mb-3">
+                        <i class="bx bx-search-alt text-secondary" style="font-size: 4rem;"></i>
+                    </div>
+                    <h5 class="mb-2">Data Tidak Ditemukan</h5>
+                    <p class="mb-0 text-muted">Tidak ada data yang sesuai dengan pencarian Anda.</p>
+                </div>
+                @endif
+                
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $hewans->links() }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                            <!-- Add this JavaScript at the end of your file, just before the closing </body> tag -->
-                            <script>
-                                // Function to handle edit rekam medis
-                                function editRekam(id, deskripsi, tanggal) {
-                                    document.getElementById('rekam_id').value = id;
-                                    document.getElementById('deskripsi').value = deskripsi;
-                                    document.getElementById('tanggal').value = tanggal;
-                                    document.getElementById('editForm').action = '{{ route('admin.rekammedis.update', ':id') }}'.replace(':id',
-                                        id);
-                                }
+<!-- Modal Edit Rekam Medis -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Edit Rekam Medis</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.rekammedis.update', 'id') }}" method="POST" id="editForm">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tanggal" class="form-label">Tanggal Pemeriksaan</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi Pemeriksaan</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-notepad"></i></span>
+                            <textarea name="deskripsi" id="deskripsi" class="form-control" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" name="rekam_id" id="rekam_id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x me-1"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bx bx-save me-1"></i> Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-                                // Extra JavaScript to ensure modal closes properly
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    // Get the cancel button
-                                    const btnCancel = document.getElementById('btnCancelModal');
-
-                                    // Add click event listener to manually hide the modal
-                                    if (btnCancel) {
-                                        btnCancel.addEventListener('click', function() {
-                                            // Try Bootstrap 5 way
-                                            const modalElement = document.getElementById('editModal');
-                                            if (modalElement) {
-                                                // Try using Bootstrap 5 modal instance
-                                                try {
-                                                    const modalInstance = bootstrap.Modal.getInstance(modalElement);
-                                                    if (modalInstance) {
-                                                        modalInstance.hide();
-                                                    }
-                                                } catch (error) {
-                                                    console.log('Bootstrap 5 modal instance not found');
-                                                }
-
-                                                // Try using jQuery if available (Bootstrap 4 way)
-                                                if (typeof jQuery !== 'undefined') {
-                                                    try {
-                                                        jQuery('#editModal').modal('hide');
-                                                    } catch (error) {
-                                                        console.log('jQuery modal hide failed');
-                                                    }
-                                                }
-
-                                                // As a last resort, try to hide using classes directly
-                                                modalElement.classList.remove('show');
-                                                modalElement.style.display = 'none';
-
-                                                // Remove modal backdrop if exists
-                                                const backdrops = document.querySelectorAll('.modal-backdrop');
-                                                backdrops.forEach(backdrop => {
-                                                    backdrop.remove();
-                                                });
-
-                                                // Remove modal-open class from body
-                                                document.body.classList.remove('modal-open');
-                                            }
-                                        });
-                                    }
-                                });
-                            </script>
+<!-- Modal Tambah Rekam Medis -->
+<div class="modal fade" id="addRekamMedisModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Tambah Rekam Medis</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('admin.rekammedis.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="id_hewan" class="form-label">Hewan</label>
+                        <select name="id_hewan" id="id_hewan" class="form-select" required>
+                            <option value="">-- Pilih Hewan --</option>
+                            @foreach(\App\Models\Hewan::all() as $hewan)
+                                <option value="{{ $hewan->id }}">{{ $hewan->nama_hewan }} ({{ $hewan->jenis_hewan }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_dokter" class="form-label">Dokter</label>
+                        <select name="id_dokter" id="id_dokter" class="form-select" required>
+                            <option value="">-- Pilih Dokter --</option>
+                            @foreach(\App\Models\Dokter::all() as $dokter)
+                                <option value="{{ $dokter->id }}">{{ $dokter->nama_dokter }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="tanggal_baru" class="form-label">Tanggal Pemeriksaan</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                            <input type="date" name="tanggal" id="tanggal_baru" class="form-control" value="{{ date('Y-m-d') }}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="deskripsi_baru" class="form-label">Deskripsi Pemeriksaan</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bx bx-notepad"></i></span>
+                            <textarea name="deskripsi" id="deskripsi_baru" class="form-control" rows="4" required></textarea>
                         </div>
                     </div>
                 </div>
-                <!-- /Content wrapper -->
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="bx bx-x me-1"></i> Batal
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bx bx-save me-1"></i> Simpan
+                    </button>
+                </div>
+            </form>
         </div>
-        <!-- /Layout wrapper -->
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+</div>
+@endsection
 
-    <!-- Core JS -->
-    <script src="{{ asset('Admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/js/menu.js') }}"></script>
+@push('styles')
+<style>
+    .expandable-row {
+        display: none;
+    }
+    
+    .toggle-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    .toggle-icon.rotate {
+        transform: rotate(180deg);
+    }
+    
+    .bg-light-primary {
+        background-color: rgba(105, 108, 255, 0.08);
+    }
+    
+    .badge.bg-label-warning {
+        background-color: rgba(255, 171, 0, 0.16) !important;
+        color: #ffab00;
+    }
+    
+    .badge.bg-label-success {
+        background-color: rgba(40, 199, 111, 0.16) !important;
+        color: #28c76f;
+    }
+    
+    .badge.bg-label-info {
+        background-color: rgba(0, 207, 232, 0.16) !important;
+        color: #00cfea;
+    }
+</style>
+@endpush
 
-    <!-- Vendor JS -->
-    <script src="{{ asset('Admin/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Function to handle edit rekam medis
+    function editRekam(id, deskripsi, tanggal) {
+        document.getElementById('rekam_id').value = id;
+        document.getElementById('deskripsi').value = deskripsi;
+        document.getElementById('tanggal').value = tanggal;
+        document.getElementById('editForm').action = '{{ route('admin.rekammedis.update', ':id') }}'.replace(':id', id);
+    }
 
-    <!-- Main JS -->
-    <script src="{{ asset('Admin/assets/js/main.js') }}"></script>
-    <script src="{{ asset('Admin/assets/js/dashboards-analytics.js') }}"></script>
+    // Function to pre-select hewan in add modal
+    function tambahRekamMedis(hewanId) {
+        const modal = new bootstrap.Modal(document.getElementById('addRekamMedisModal'));
+        document.getElementById('id_hewan').value = hewanId;
+        modal.show();
+    }
 
-    <!-- GitHub Button -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
-
-</html>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        
+        // Toggle expand/collapse
+        document.querySelectorAll('.toggle-expand-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const hewanId = this.getAttribute('data-hewan-id');
+                const expandableRow = document.getElementById('medical-records-' + hewanId);
+                const toggleIcon = document.getElementById('toggle-icon-' + hewanId);
+                
+                if (expandableRow.style.display === 'table-row') {
+                    expandableRow.style.display = 'none';
+                    toggleIcon.classList.remove('rotate');
+                } else {
+                    expandableRow.style.display = 'table-row';
+                    toggleIcon.classList.add('rotate');
+                }
+            });
+        });
+        
+        // Delete confirmation
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const form = this.closest('form');
+                
+                Swal.fire({
+                    title: 'Konfirmasi Hapus',
+                    text: "Apakah Anda yakin ingin menghapus rekam medis ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+@endpush

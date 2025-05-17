@@ -1,110 +1,112 @@
-<!doctype html>
-<html lang="id" class="layout-menu-fixed layout-compact" data-assets-path="{{ asset('Admin/assets/') }}" data-template="vertical-menu-template-free">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Tambah Artikel</title>
-    <meta name="description" content="" />
+@section('title', 'Tambah Artikel')
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('Admin/assets/img/favicon/favicon.ico') }}" />
+@section('content')
+<h4 class="fw-bold py-2 mb-3">
+    <span class="text-muted fw-light">Admin / Artikel /</span> Tambah Artikel
+</h4>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header d-flex justify-content-between align-items-center">
+                Tambah Artikel Baru
+                <a href="{{ route('admin.artikel.index') }}" class="btn btn-secondary">
+                    <i class="bx bx-arrow-back me-1"></i> Kembali
+                </a>
+            </h5>
 
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/fonts/iconify-icons.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/css/core.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('Admin/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-    
-    <!-- Tambahkan gaya kustom -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-</head>
-
-<body>
-    <!-- Wrapper Layout -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            <!-- Sidebar Menu -->
-            @include('Admin.sidebar')
-
-            <!-- Container Layout -->
-            <div class="layout-page">
-                <!-- Navbar -->
-                @include('Admin.navbar')
-
-                <!-- Wrapper Konten -->
-                <div class="content-wrapper">
-                    <!-- Konten -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card-body">
+                <!-- Form untuk menambah artikel -->
+                <form action="{{ route('admin.artikel.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="judul" class="form-label">Judul Artikel</label>
+                        <input type="text" class="form-control @error('judul') is-invalid @enderror" 
+                            id="judul" name="judul" value="{{ old('judul') }}" required>
+                        @error('judul')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="deskripsi" class="form-label">Deskripsi</label>
+                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
+                            id="deskripsi" name="deskripsi" rows="6" required>{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="penulis" class="form-label">Penulis</label>
+                            <input type="text" class="form-control @error('penulis') is-invalid @enderror" 
+                                id="penulis" name="penulis" value="{{ old('penulis') }}" required>
+                            @error('penulis')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label for="tanggal" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control @error('tanggal') is-invalid @enderror" 
+                                id="tanggal" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required>
+                            @error('tanggal')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                
+                    <div class="mb-4">
+                        <label for="thumbnail" class="form-label">Thumbnail</label>
                         <div class="row">
-                            <div class="card">
-                                <h5 class="card-header">Tambah Artikel</h5>
-
-                                <div class="card-body">
-                                    <!-- Form untuk menambah artikel -->
-                                    <form action="{{ route('admin.artikel.store') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="judul" class="form-label">Judul Artikel</label>
-                                            <input type="text" class="form-control" id="judul" name="judul" required>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="4" required></textarea>
-                                        </div>
-                                    
-                                        <div class="mb-3">
-                                            <label for="penulis" class="form-label">Penulis</label>
-                                            <input type="text" class="form-control" id="penulis" name="penulis" required>
-                                        </div>
-                                    
-                                        <div class="mb-3">
-                                            <label for="tanggal" class="form-label">Tanggal</label>
-                                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
-                                        </div>
-                                    
-                                        <div class="mb-3">
-                                            <label for="thumbnail" class="form-label">Thumbnail</label>
-                                            <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
-                                        </div>
-                                    
-                                        <button type="submit" class="btn btn-primary">Simpan Artikel</button>
-                                    </form>                                    
-                                </div>
+                            <div class="col-md-9">
+                                <input type="file" class="form-control @error('thumbnail') is-invalid @enderror" 
+                                    id="thumbnail" name="thumbnail" accept="image/*" onchange="previewImage()">
+                                @error('thumbnail')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <small class="text-muted">Format: JPG, JPEG, PNG (Maks. 2MB)</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <img id="preview" src="{{ asset('Admin/assets/img/illustrations/no-image.png') }}" 
+                                    alt="Preview" class="img-fluid rounded" style="max-height: 120px; width: auto;">
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- / Wrapper Konten -->
+                
+                    <div class="text-end">
+                        <button type="reset" class="btn btn-outline-secondary me-2">
+                            <i class="bx bx-reset me-1"></i> Reset
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bx bx-save me-1"></i> Simpan Artikel
+                        </button>
+                    </div>
+                </form>                                    
             </div>
         </div>
-        <!-- / Wrapper Layout -->
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+</div>
+@endsection
 
-    <!-- JS Core -->
-    <script src="{{ asset('Admin/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('Admin/assets/vendor/js/menu.js') }}"></script>
-
-    <!-- JS Vendor -->
-    <script src="{{ asset('Admin/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-
-    <!-- JS Utama -->
-    <script src="{{ asset('Admin/assets/js/main.js') }}"></script>
-
-    <!-- JS Halaman -->
-    <script src="{{ asset('Admin/assets/js/dashboards-analytics.js') }}"></script>
-</body>
-
-</html>
+@push('scripts')
+<script>
+    function previewImage() {
+        const input = document.getElementById('thumbnail');
+        const preview = document.getElementById('preview');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@endpush

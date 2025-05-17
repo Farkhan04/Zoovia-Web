@@ -8,9 +8,15 @@ use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
+    /**
+     * Show the profile edit form
+     * 
+     * @return \Illuminate\View\View
+     */
     public function edit()
     {
         $user = Auth::user();
@@ -19,7 +25,12 @@ class ProfileController extends Controller
         return view('admin.profile', compact('user', 'profile'));
     }
 
-    // Di ProfileController.php, metode update
+    /**
+     * Update the user's profile
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request)
     {
         $request->validate([
@@ -62,13 +73,25 @@ class ProfileController extends Controller
         // Gunakan alamat gabungan atau tetap gunakan yang lama jika kosong
         $profile->address = !empty($fullAddress) ? $fullAddress : $profile->address;
 
+        // Debug upload process
+        Log::info('File upload check: ', [
+            'has_file' => $request->hasFile('upload'),
+            'file_valid' => $request->hasFile('upload') ? $request->file('upload')->isValid() : 'N/A',
+            'files' => $request->allFiles()
+        ]);
+
         // Upload foto jika ada
-        if ($request->hasFile('upload')) {
-            // Pastikan variabel 'upload' cocok dengan nama input di form
-            if ($profile->photo) {
-                Storage::delete('public/' . $profile->photo);
+        if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
+            // Hapus foto lama jika ada
+            if ($profile->photo && Storage::disk('public')->exists($profile->photo)) {
+                Storage::disk('public')->delete($profile->photo);
             }
-            $profile->photo = $request->file('upload')->store('profile_photos', 'public');
+            
+            // Simpan foto baru
+            $path = $request->file('upload')->store('profile_photos', 'public');
+            $profile->photo = $path;
+            
+            Log::info('Profile photo uploaded: ' . $path);
         }
 
         $profile->save();

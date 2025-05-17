@@ -25,8 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-                // Mendaftarkan observer
-        Antrian::observe(AntrianObserver::class);
-        RekamMedis::observe(RekamMedisObserver::class);
+        
     }
 }

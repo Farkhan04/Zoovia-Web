@@ -111,24 +111,24 @@ class ArtikelController extends Controller
 
         try {
             $artikel = Artikel::findOrFail($id);
-            
+
             // Handle thumbnail upload if exists
             if ($request->hasFile('thumbnail')) {
                 // Delete old thumbnail if exists
                 $this->deleteThumbnail($artikel->thumbnail);
-                
+
                 // Upload new thumbnail
                 $thumbnailPath = $this->uploadThumbnail($request->file('thumbnail'));
                 $artikel->thumbnail = $thumbnailPath;
             }
-            
+
             // Update article data
             $artikel->judul = $request->judul;
             $artikel->deskripsi = $request->deskripsi;
             $artikel->penulis = $request->penulis;
             $artikel->tanggal = $request->tanggal;
             $artikel->save();
-            
+
             return redirect()->route('admin.artikel.index')
                 ->with('success', 'Artikel berhasil diperbarui');
         } catch (\Exception $e) {
@@ -144,13 +144,13 @@ class ArtikelController extends Controller
     {
         try {
             $artikel = Artikel::findOrFail($id);
-            
+
             // Delete thumbnail if exists
             $this->deleteThumbnail($artikel->thumbnail);
-            
+
             // Delete article
             $artikel->delete();
-            
+
             return redirect()->route('admin.artikel.index')
                 ->with('success', 'Artikel berhasil dihapus');
         } catch (\Exception $e) {
@@ -159,7 +159,7 @@ class ArtikelController extends Controller
                 ->with('error', 'Terjadi kesalahan saat menghapus artikel');
         }
     }
-    
+
     // Helper method untuk upload thumbnail
     private function uploadThumbnail($file)
     {
@@ -168,12 +168,24 @@ class ArtikelController extends Controller
         $path = $file->storeAs('artikel_photos', $filename, 'public');
         return $path;
     }
-    
+
     // Helper method untuk menghapus thumbnail
     private function deleteThumbnail($path)
     {
         if ($path && Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
+    }
+
+    /**
+     * Menampilkan detail artikel
+     * 
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        return view('admin.artikel.show', compact('artikel'));
     }
 }

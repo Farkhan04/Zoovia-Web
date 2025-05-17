@@ -17,6 +17,7 @@ class RekamMedis extends Model
         'id_hewan',
         'id_dokter',
         'deskripsi',
+        'tanggal',
     ];
 
     /**
@@ -35,10 +36,4 @@ class RekamMedis extends Model
         return $this->belongsTo(Dokter::class, 'id_dokter');
     }
 
-
-    // Relasi dengan tabel Antrian
-    public function antrian()
-    {
-        return $this->belongsTo(Antrian::class);
-    }
 }

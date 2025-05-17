@@ -28,5 +28,9 @@ class Hewan extends Model
         return $this->belongsTo(User::class, 'id_user'); // Relasi ke model User
     }
 
-    // Menambahkan aksesori atau mutator untuk data yang ingin ditampilkan atau diubah jika diperlukan
+    // Tambahkan relasi ke rekam medis
+    public function rekamMedis()
+    {
+        return $this->hasMany(RekamMedis::class, 'id_hewan');
+    }
 }

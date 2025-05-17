@@ -24,4 +24,16 @@ class UserProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the profile photo URL
+     */
+    public function getPhotoUrlAttribute()
+    {
+        if ($this->photo) {
+            return asset($this->photo);
+        }
+        
+        return asset('Admin/assets/img/avatars/1.png');
+    }
 }

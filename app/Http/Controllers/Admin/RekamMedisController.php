@@ -2,64 +2,54 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Admin\RekamMedis;
-use App\Models\Admin\Hewan;
-use App\Models\Admin\Dokter;
+use App\Models\Dokter;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Hewan as ModelsHewan;
-use Carbon\Carbon;
+use App\Models\Hewan;
+use App\Models\RekamMedis;
+use Illuminate\Support\Facades\DB;
 
 class RekamMedisController extends Controller
 {
     /**
-     * Menampilkan daftar rekam medis.
+     * Menampilkan daftar hewan beserta rekam medisnya.
      */
-    public function index(Request $request, $status = null)
+    public function index(Request $request)
     {
-        $query = RekamMedis::with(['hewan', 'dokter', 'antrian']);
+        // Ambil semua hewan yang memiliki rekam medis
+        $query = Hewan::whereHas('rekamMedis');
 
-        // Menambahkan pencarian berdasarkan parameter "search"
+        // Filter pencarian jika ada
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-
-            // Filter rekam medis berdasarkan deskripsi atau kolom lainnya
             $query->where(function ($q) use ($search) {
-                $q->where('deskripsi', 'like', '%' . $search . '%')
-                    ->orWhereHas('hewan', function ($query) use ($search) {
-                        $query->where('nama_hewan', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('dokter', function ($query) use ($search) {
-                        $query->where('nama_dokter', 'like', '%' . $search . '%');
-                    });
+                $q->where('nama_hewan', 'like', '%' . $search . '%')
+                  ->orWhere('jenis_hewan', 'like', '%' . $search . '%');
             });
         }
 
-        // Filter berdasarkan status antrian jika ada
-        if ($status) {
-            $query->whereHas('antrian', function ($query) use ($status) {
-                $query->where('status', $status);
-            });
-        }
+        // Ambil hewan dengan rekam medis terbaru
+        $hewans = $query->with(['rekamMedis' => function($query) {
+            $query->orderBy('tanggal', 'desc');
+        }, 'rekamMedis.dokter'])
+        ->paginate(10);
 
-        // Mendapatkan rekam medis yang difilter
-        $rekamMedis = $query->paginate(10); // Anda bisa menyesuaikan jumlah artikel per halaman
-
-        return view('Admin.RekamMedis.index', compact('rekamMedis'));
+        return view('Admin.RekamMedis.index', compact('hewans'));
     }
 
-
     /**
-     * Menampilkan form untuk membuat rekam medis baru.
+     * Menampilkan detail rekam medis hewan.
      */
-    // public function create()
-    // {
-    //     // Ambil semua data hewan dan dokter untuk dropdown
-    //     $hewan = ModelsHewan::all();
-    //     $dokter = Dokter::all();
-
-    //     return view('admin.rekam_medis.create', compact('hewan', 'dokter'));
-    // }
+    public function show($id)
+    {
+        $hewan = Hewan::findOrFail($id);
+        $rekamMedis = RekamMedis::where('id_hewan', $id)
+            ->with('dokter')
+            ->orderBy('tanggal', 'desc')
+            ->get();
+        
+        return view('Admin.RekamMedis.show', compact('hewan', 'rekamMedis'));
+    }
 
     /**
      * Menyimpan rekam medis baru.
@@ -82,33 +72,13 @@ class RekamMedisController extends Controller
             'tanggal' => $request->tanggal,
         ]);
 
-        return redirect()->route('admin.rekam_medis.index');
+        return redirect()->route('admin.rekammedis.index')
+            ->with('success', 'Rekam medis berhasil ditambahkan.');
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     // Ambil rekam medis berdasarkan ID
-    //     $rekam = RekamMedis::findOrFail($id);
-
-    //     // Validasi data yang diterima
-    //     $validated = $request->validate([
-    //         'deskripsi' => 'required|string',
-    //         'tanggal' => 'required|date',
-    //     ]);
-
-    //     // Perbarui data rekam medis
-    //     $rekam->update([
-    //         'deskripsi' => $validated['deskripsi'],
-    //         'tanggal' => $validated['tanggal'],
-    //     ]);
-
-    //     // Ubah status antrian menjadi 'selesai'
-    //     $rekam->antrian->update(['status' => 'selesai']);
-
-    //     // Redirect ke halaman utama dengan pesan sukses
-    //     return redirect()->route('rekam-medis.index')->with('success', 'Rekam medis berhasil diperbarui dan status antrian diubah menjadi selesai.');
-    // }
-
+    /**
+     * Memperbarui rekam medis yang ada.
+     */
     public function update(Request $request, $id)
     {
         // Ambil rekam medis berdasarkan ID
@@ -126,30 +96,30 @@ class RekamMedisController extends Controller
             'tanggal' => $validated['tanggal'],
         ]);
 
-        // Ubah status antrian menjadi 'selesai'
-        if ($rekam->antrian) {
-            $rekam->antrian->update(['status' => 'selesai']);
-        }
-
         // Redirect ke halaman utama dengan pesan sukses
-        return redirect()->route('admin.rekammedis.index')->with('success', 'Rekam medis berhasil diperbarui dan status antrian diubah menjadi selesai.');
+        return redirect()->back()
+            ->with('success', 'Rekam medis berhasil diperbarui.');
     }
 
-    // Fungsi untuk menghapus data rekam medis
+    /**
+     * Menghapus rekam medis.
+     */
     public function destroy($id)
     {
         // Cek apakah data rekam medis ada
-        $medicalRecord = RekamMedis::find($id);
+        $rekamMedis = RekamMedis::find($id);
 
         // Jika data tidak ditemukan, return error
-        if (!$medicalRecord) {
-            return redirect()->route('admin.rekammedis.index')->with('error', 'Data Rekam Medis tidak ditemukan.');
+        if (!$rekamMedis) {
+            return redirect()->back()
+                ->with('error', 'Data Rekam Medis tidak ditemukan.');
         }
 
         // Hapus data rekam medis
-        $medicalRecord->delete();
+        $rekamMedis->delete();
 
-        // Redirect ke halaman index dengan pesan sukses
-        return redirect()->route('admin.rekammedis.index')->with('success', 'Data Rekam Medis berhasil dihapus.');
+        // Redirect ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()
+            ->with('success', 'Data Rekam Medis berhasil dihapus.');
     }
 }
