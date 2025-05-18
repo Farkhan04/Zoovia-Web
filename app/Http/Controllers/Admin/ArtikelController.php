@@ -61,10 +61,19 @@ class ArtikelController extends Controller
 
         // Upload gambar thumbnail ke storage/app/public/thumbnails
         if ($request->hasFile('thumbnail')) {
+            // Mendapatkan ekstensi file gambar
             $extension = $request->file('thumbnail')->getClientOriginalExtension();
+            
+            // Membuat nama file yang lebih pendek
             $newName = Str::random(5) . '.' . $extension;
+            
+            // Menyimpan gambar dengan nama baru
             $path = $request->file('thumbnail')->storeAs('public/thumbnails', $newName);
+            
+            // Log untuk memastikan gambar disimpan di folder yang benar
             Log::info('Gambar berhasil disimpan di: ' . $path);
+            
+            // Menyimpan path relatif gambar di database
             $artikel->thumbnail = str_replace('public/', '', $path);
         }
 

@@ -24,6 +24,7 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
+        'api_token'
     ];
 
     protected $casts = [
@@ -37,16 +38,17 @@ class User extends Authenticatable
         return $this->hasMany(OtpCode::class);
     }
 
-    public function antrians()
-    {
-        return $this->hasMany(Antrian::class, 'id_user');
-    }
-
     // Relasi ke Profile
     public function profile()
     {
         return $this->hasOne(UserProfile::class);
     }
+
+    public function antrians()
+    {
+        return $this->hasMany(Antrian::class, 'id_user');
+    }
+
 
     
 }

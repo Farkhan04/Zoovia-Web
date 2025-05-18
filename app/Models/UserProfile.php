@@ -13,6 +13,7 @@ class UserProfile extends Model
     // Kolom yang boleh diisi massal (fillable)
     protected $fillable = [
         'user_id',
+        'no_hp',
         'photo',
         'address',
     ];
