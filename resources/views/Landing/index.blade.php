@@ -148,11 +148,8 @@
                                 profesional dan fasilitas yang memadai untuk menangani berbagai kondisi kesehatan hewan.
                             </p>
                             <div class="about-btn1 mb-30">
-                                <a href="about" class="btn about-btn">Temukan Dokter .<i
+                                <a href="about" class="btn about-btn">Temukan Dokter <i
                                         class="ti-arrow-right"></i></a>
-                            </div>
-                            <div class="about-btn1 mb-30">
-                                <a href="about" class="btn about-btn2">Jadwal <i class="ti-arrow-right"></i></a>
                             </div>
 
                         </div>

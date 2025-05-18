@@ -49,6 +49,14 @@
 
         <!-- Rekam Medis -->
         <li class="menu-item">
+            <a href="{{ route('admin.dokter.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book"></i>
+                <div class="text-truncate" data-i18n="Dokter">Dokter</div>
+            </a>
+        </li>
+
+        <!-- Rekam Medis -->
+        <li class="menu-item">
             <a href="{{ route('admin.rekammedis.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-medical"></i>
                 <div class="text-truncate" data-i18n="Rekam Medis">Rekam Medis</div>

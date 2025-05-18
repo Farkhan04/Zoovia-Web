@@ -24,24 +24,6 @@
     <script src="Admin/assets/vendor/js/helpers.js"></script>
     <script src="Admin/assets/js/config.js"></script>
     
-    <!-- PENTING: Tambahkan fungsi di head -->
-    <script>
-        // Definisikan fungsi toggle password sebagai fungsi global
-        function togglePasswordVisibility(inputId) {
-            var input = document.getElementById(inputId);
-            var button = document.getElementById(inputId + '-toggle');
-            var icon = button.querySelector('i');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fas fa-eye';
-            } else {
-                input.type = 'password';
-                icon.className = 'fas fa-eye-slash';
-            }
-        }
-    </script>
-    
     <style>
         html,
         body {
@@ -233,20 +215,6 @@
             background-color: #fff;
         }
 
-        .input-group-text {
-            cursor: pointer;
-            background-color: #FAFAFA;
-            border: 2px solid #EDE7F6;
-            border-left: none;
-            color: #9575CD;
-            transition: all 0.3s;
-            border-radius: 0 0.75rem 0.75rem 0;
-        }
-
-        .input-group-text:hover {
-            color: #5E35B1;
-        }
-
         .btn-primary {
             background: linear-gradient(45deg, #9C27B0, #673AB7);
             border: none;
@@ -300,17 +268,6 @@
             background-color: #F3E5F5;
             color: #5E35B1;
             border-color: #D1C4E9;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .input-group-merge .form-control:not(:last-child) {
-            border-right: none;
-            padding-right: 0;
-            border-radius: 0.75rem 0 0 0.75rem;
         }
 
         .paw-bullet {
@@ -566,6 +523,219 @@
                 opacity: 0;
             }
         }
+        
+        /* Style untuk checkbox show password */
+        .show-password-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #F3E5F5;
+            border-radius: 10px;
+            border: 1px solid #D1C4E9;
+        }
+        
+        .show-password-checkbox {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #673AB7;
+        }
+        
+        .show-password-label {
+            font-size: 0.875rem;
+            color: #5E35B1;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .show-password-label i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        /* SUCCESS NOTIFICATION STYLES */
+        .success-notification {
+            display: none;
+            background: linear-gradient(135deg, #7CB342, #558B2F);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(85, 139, 47, 0.3);
+            animation: slideDown 0.5s ease-out forwards, pulse 2s infinite;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 10px 25px rgba(85, 139, 47, 0.3);
+            }
+            50% {
+                box-shadow: 0 10px 30px rgba(85, 139, 47, 0.5);
+            }
+            100% {
+                box-shadow: 0 10px 25px rgba(85, 139, 47, 0.3);
+            }
+        }
+        
+        .success-notification::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .success-notification::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .success-notification .success-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        
+        .success-notification .success-icon i {
+            font-size: 24px;
+            color: #558B2F;
+        }
+        
+        .success-notification .success-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .success-notification h4 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success-notification p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        .success-notification .success-paws {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+            z-index: 1;
+        }
+        
+        .success-notification .success-paws i {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+            animation: pawWalk 3s infinite;
+            transform-origin: center;
+        }
+        
+        .success-notification .success-paws i:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .success-notification .success-paws i:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes pawWalk {
+            0%, 100% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateX(-15px) rotate(-10deg);
+                opacity: 1;
+            }
+        }
+        
+        .success-notification .success-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .success-notification .success-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
     </style>
 </head>
 
@@ -597,7 +767,26 @@
                     <h5>Ganti Password</h5>
                 </div>
                 <div class="card-body">
-                    <!-- Form dengan fungsi toggle password yang diperbaiki -->
+                    <!-- Success Notification -->
+                    <div class="success-notification" id="success-notification">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="success-content">
+                            <h4>Password Berhasil Diperbarui!</h4>
+                            <p>Password Anda telah berhasil diubah. Silakan gunakan password baru Anda untuk login selanjutnya.</p>
+                        </div>
+                        <div class="success-paws">
+                            <i class="fas fa-paw"></i>
+                            <i class="fas fa-paw"></i>
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <button type="button" class="success-close" onclick="closeSuccessNotification()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Form dengan checkbox untuk menampilkan password -->
                     <form id="password-form" action="{{ route('admin.gantisandi') }}" method="POST">
                         @csrf
 
@@ -626,15 +815,8 @@
                         <!-- Password Lama -->
                         <div class="mb-3">
                             <label for="current-password" class="form-label">Password Lama</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" class="form-control" id="current-password"
-                                    name="current_password" placeholder="Masukkan password lama Anda" required />
-                                <!-- PERUBAHAN: Gunakan atribut onclick -->
-                                <span class="input-group-text cursor-pointer" id="current-password-toggle" 
-                                      onclick="togglePasswordVisibility('current-password')">
-                                    <i class="fas fa-eye-slash"></i>
-                                </span>
-                            </div>
+                            <input type="password" class="form-control" id="current-password" 
+                                name="current_password" placeholder="Masukkan password lama Anda" required />
                             @error('current_password')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
@@ -643,15 +825,8 @@
                         <!-- Password Baru -->
                         <div class="mb-3">
                             <label for="new-password" class="form-label">Password Baru</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" class="form-control" id="new-password" name="new_password"
-                                    placeholder="Masukkan password baru" required />
-                                <!-- PERUBAHAN: Gunakan atribut onclick -->
-                                <span class="input-group-text cursor-pointer" id="new-password-toggle"
-                                      onclick="togglePasswordVisibility('new-password')">
-                                    <i class="fas fa-eye-slash"></i>
-                                </span>
-                            </div>
+                            <input type="password" class="form-control" id="new-password" name="new_password"
+                                placeholder="Masukkan password baru" required />
                             @error('new_password')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
@@ -677,15 +852,16 @@
                         <!-- Konfirmasi Password Baru -->
                         <div class="mb-3">
                             <label for="confirm-password" class="form-label">Konfirmasi Password Baru</label>
-                            <div class="input-group input-group-merge">
-                                <input type="password" class="form-control" id="confirm-password"
-                                    name="new_password_confirmation" placeholder="Konfirmasi password baru Anda" required />
-                                <!-- PERUBAHAN: Gunakan atribut onclick -->
-                                <span class="input-group-text cursor-pointer" id="confirm-password-toggle"
-                                      onclick="togglePasswordVisibility('confirm-password')">
-                                    <i class="fas fa-eye-slash"></i>
-                                </span>
-                            </div>
+                            <input type="password" class="form-control" id="confirm-password"
+                                name="new_password_confirmation" placeholder="Konfirmasi password baru Anda" required />
+                        </div>
+
+                        <!-- Checkbox untuk menampilkan password -->
+                        <div class="show-password-container">
+                            <input type="checkbox" id="show-password" class="show-password-checkbox">
+                            <label for="show-password" class="show-password-label">
+                                Tampilkan semua password
+                            </label>
                         </div>
 
                         <!-- Tombol Kirim -->
@@ -708,7 +884,7 @@
     </div>
 
     <!-- Watermark -->
-    <div class="watermark">© 2025, Pusat Kesehatan Hewan - Dibuat dengan <i class="fas fa-heart"
+    <div class="watermark">© 2025, Zoovia - Dibuat dengan <i class="fas fa-heart"
             style="color: #E91E63;"></i> untuk hewan kesayangan Anda</div>
 
     <!-- Core JS -->
@@ -728,6 +904,33 @@
             const passwordFeedback = document.getElementById('password-feedback');
             const passwordTips = document.getElementById('password-tips');
 
+            // Elemen password fields
+            const currentPassword = document.getElementById('current-password');
+            const confirmPassword = document.getElementById('confirm-password');
+            
+            // Checkbox show password
+            const showPasswordCheckbox = document.getElementById('show-password');
+            
+            // Fungsi untuk menampilkan/menyembunyikan password
+            showPasswordCheckbox.addEventListener('change', function() {
+                // Dapatkan semua field password
+                const passwordFields = [currentPassword, newPassword, confirmPassword];
+                
+                // Ubah tipe input untuk semua field password
+                passwordFields.forEach(field => {
+                    field.type = this.checked ? 'text' : 'password';
+                });
+                
+                // Ubah ikon pada label
+                const icon = document.querySelector('.show-password-label i');
+                if (this.checked) {
+                    icon.className = 'fas fa-check-square';
+                } else {
+                    icon.className = 'fas fa-square';
+                }
+            });
+
+            // Password strength meter events
             newPassword.addEventListener('focus', function() {
                 passwordTips.classList.add('show');
             });
@@ -780,7 +983,6 @@
             });
 
             // Konfirmasi password match
-            const confirmPassword = document.getElementById('confirm-password');
             const passwordForm = document.getElementById('password-form');
 
             passwordForm.addEventListener('submit', function(e) {
@@ -792,6 +994,39 @@
                 }
                 // Form akan dikirim secara normal jika password cocok
             });
+            
+            // Success notification functions
+            // Function to show success notification
+            window.showSuccessNotification = function() {
+                document.getElementById('success-notification').style.display = 'block';
+                
+                // Auto hide after 8 seconds
+                setTimeout(function() {
+                    closeSuccessNotification();
+                }, 8000);
+            }
+            
+            // Function to close success notification
+            window.closeSuccessNotification = function() {
+                const notification = document.getElementById('success-notification');
+                notification.style.animation = 'fadeOut 0.5s forwards';
+                
+                setTimeout(function() {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'slideDown 0.5s ease-out forwards, pulse 2s infinite';
+                }, 500);
+            }
+            
+            // Check if there's a success parameter in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('success') && urlParams.get('success') === 'true') {
+                showSuccessNotification();
+            }
+            
+            // Integration with Laravel's existing flash message system
+            @if(session('status'))
+                showSuccessNotification();
+            @endif
 
             // Animasi tambahan - membuat tampilan lebih hidup
             function animatePaw() {

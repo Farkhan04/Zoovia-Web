@@ -6,9 +6,11 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ArtikelController;
+use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Admin\RekamMedisController;
 use App\Http\Controllers\Auth\LupaPasswordController;
 use App\Http\Controllers\Admin\GantiSandiController;
+
 
 Route::get('/', function () {
     return view('Landing.index');
@@ -29,10 +31,9 @@ Route::get('/about', function () {
     return view('Landing.about'); // Mengarahkan ke halaman About
 });
 
-// Route untuk Dokter
-Route::get('/dokter', function () {
-    return view('Landing.doctor'); // Mengarahkan ke halaman Dokter
-});
+
+Route::resource('dokter', DokterController::class);
+
 
 Route::get('/pelayanan', function () {
     return view('Landing.pelayanan'); // Mengarahkan ke halaman Dokter
@@ -41,17 +42,20 @@ Route::get('/pelayanan', function () {
 
 Route::middleware(['auth'])->group(function () {
     // Route untuk halaman dan proses ganti password
-    Route::get('/ganti-sandi', [GantiSandiController::class, 'showChangePasswordForm'])->name('admin.gantisandi');
-    Route::post('/ganti-sandi', [GantiSandiController::class, 'changePassword'])->name('admin.gantisandi');
-
-    // Tambahkan alias untuk 'change.password.form' yang digunakan di controller
-    Route::post('/ganti-sandi', [GantiSandiController::class, 'changePassword'])->name('change.password.form');
+    Route::get('/ganti-sandi', [GantiSandiController::class, 'showChangePasswordForm'])
+        ->name('change.password.form');  // Ubah nama route GET ini agar sesuai dengan yang digunakan di controller
+    
+    Route::post('/ganti-sandi', [GantiSandiController::class, 'changePassword'])
+        ->name('admin.gantisandi');  // Pertahankan hanya satu route POST
+    
+    // Route untuk halaman sukses password
+    Route::get('/password-success', [GantiSandiController::class, 'showSuccessPage'])
+        ->name('admin.password.success');
 });
 
 
 
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
@@ -65,7 +69,9 @@ Route::name('admin.')->group(function () {
     Route::resource('artikel', ArtikelController::class);
 });
 
-
+Route::name('admin.')->group(function () {
+    Route::resource('dokter', DokterController::class);
+});
 
 
 // Rute untuk menampilkan form login
@@ -74,9 +80,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 // Rute untuk logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::middleware('auth')->get('/dashboard', function () {
-    return view('admin.dashboard'); // Halaman dashboard
-})->name('dashboard');
+
+
+Route::middleware('auth')->get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');;
 
 Route::get('/lupapassword', [LupaPasswordController::class, 'index']);
 

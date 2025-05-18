@@ -7,16 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log; // Tambahkan import ini
-use App\Models\User; // Tambahkan import model User
+use Illuminate\Support\Facades\Log;
+use App\Models\User;
 
 class GantiSandiController extends Controller
 {
-
     // Fungsi untuk menampilkan halaman ganti sandi
     public function showChangePasswordForm()
     {
-        return view('admin.gantisandi'); // Mengarahkan ke view admin/gantisandi.blade.php
+        return view('admin.gantisandi');
+    }
+
+    // Fungsi untuk menampilkan halaman sukses ganti password
+    public function showSuccessPage()
+    {
+        return view('admin.password-success');
     }
 
     public function changePassword(Request $request)
@@ -68,8 +73,8 @@ class GantiSandiController extends Controller
                     ->withErrors(['save_error' => 'Gagal menyimpan password (save() mengembalikan false).']);
             }
 
-            return redirect()->route('dashboard')
-                ->with('status', 'Password berhasil diubah!');
+            // Redirect ke halaman sukses bukannya langsung ke dashboard
+            return redirect()->route('admin.password.success');
         } catch (\Exception $e) {
             // Log error detail
             Log::error('Error saat menyimpan password: ' . $e->getMessage());
