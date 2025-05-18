@@ -43,6 +43,9 @@
     <!-- Rekam Medis Table Card -->
     <div class="col-12">
         <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Daftar Rekam Medis</h5>
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
@@ -333,6 +336,11 @@
     .badge.bg-label-info {
         background-color: rgba(0, 207, 232, 0.16) !important;
         color: #00cfea;
+    }
+    
+    .badge.bg-label-secondary {
+        background-color: rgba(108, 117, 125, 0.16) !important;
+        color: #6c757d;
     }
 </style>
 @endpush
