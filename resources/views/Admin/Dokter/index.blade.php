@@ -81,7 +81,7 @@
                                         </div>
                                     </td>
                                     <td>{{ $dokter->alamat }}</td>
-                                    <td>{{ $dokter->no_telepon }}</td>
+                                    <td>+62{{ $dokter->no_telepon }}</td>
                                     <td>
                                         @if($dokter->layanan)
                                             <span class="badge bg-label-primary">{{ $dokter->layanan->nama_layanan }}</span>
@@ -91,17 +91,17 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('admin.dokter.show', $dokter->id) }}" class="btn btn-icon btn-sm btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
-                                                <i class="bx bx-show"></i>
+                                            <a href="{{ route('admin.dokter.show', $dokter->id) }}" class="btn btn-icon btn-md btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+                                                <i class="bx bx-show" style="color: white;"></i>
                                             </a>
-                                            <a href="{{ route('admin.dokter.edit', $dokter->id) }}" class="btn btn-icon btn-sm btn-info me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                <i class="bx bx-edit"></i>
+                                            <a href="{{ route('admin.dokter.edit', $dokter->id) }}" class="btn btn-icon btn-md btn-info me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                <i class="bx bx-edit" style="color: white;"></i>
                                             </a>
                                             <form action="{{ route('admin.dokter.destroy', $dokter->id) }}" method="POST" class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-icon btn-sm btn-danger btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus" data-name="{{ $dokter->nama_dokter }}">
-                                                    <i class="bx bx-trash"></i>
+                                                <button type="button" class="btn btn-icon btn-md btn-danger btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus" data-name="{{ $dokter->nama_dokter }}">
+                                                    <i class="bx bx-trash" style="color: white;"></i>
                                                 </button>
                                             </form>
                                         </div>

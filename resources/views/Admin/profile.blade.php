@@ -59,9 +59,9 @@
                     action="{{ route('admin.profile.update') }}" enctype="multipart/form-data" 
                     class="needs-validation" novalidate>
                     @csrf
-                    <!-- Hidden file input -->
-                    <input type="file" id="upload" name="upload" class="d-none"
-                        accept="image/png, image/jpeg">
+                    <!-- PENTING: File input tidak disembunyikan -->
+                    <input type="file" id="upload" name="upload" 
+                        accept="image/png, image/jpeg" style="display: none;">
 
                     <div class="row g-3 mb-4">
                         <!-- Informasi pribadi heading -->
@@ -249,7 +249,7 @@
         const uploadButton = document.getElementById('upload-button');
         const resetAvatarButton = document.getElementById('reset-avatar');
         const resetFormButton = document.querySelector('button[type="reset"]');
-        const defaultImageSrc = avatarImage.src; // Save default image URL
+        const defaultImageSrc = '{{ $profile && $profile->photo ? asset("storage/" . $profile->photo) : asset("Admin/assets/img/avatars/1.png") }}';
         
         // Trigger file input when upload button is clicked
         uploadButton.addEventListener('click', function() {
@@ -266,6 +266,7 @@
                 };
                 
                 reader.readAsDataURL(this.files[0]);
+                console.log('File selected:', this.files[0].name);
             }
         });
         
@@ -281,16 +282,16 @@
             uploadInput.value = ''; // Clear file input
         });
         
-        // Form validation
-        const forms = document.querySelectorAll('.needs-validation');
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
+        // Form validation and submission handling
+        const form = document.getElementById('formAccountSettings');
+        form.addEventListener('submit', function(event) {
+            // Check if file is selected and verify form validity
+            console.log('Form submitted', uploadInput.files);
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
         });
     });
 </script>

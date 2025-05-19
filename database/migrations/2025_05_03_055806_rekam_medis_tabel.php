@@ -15,7 +15,6 @@ return new class extends Migration
             $tabelRekamMedis->id();
             $tabelRekamMedis->foreignId('id_hewan')->constrained('hewan');
             $tabelRekamMedis->foreignId('id_dokter')->constrained('dokter');
-            $tabelRekamMedis->foreignId('id_antrian')->constrained('antrian');
             $tabelRekamMedis->string('deskripsi');
             $tabelRekamMedis->timestamp('tanggal')->useCurrent(); // Kolom tanggal dengan nilai default saat ini
             $tabelRekamMedis->timestamps();

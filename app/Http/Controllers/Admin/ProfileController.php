@@ -33,6 +33,13 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
+        // Debug semua data yang diterima
+        Log::info('Received request data:', [
+            'all' => $request->all(),
+            'files' => $request->allFiles(),
+            'has_file' => $request->hasFile('upload'),
+        ]);
+
         $request->validate([
             'NamaDepan' => 'nullable|string|max:255',
             'NamaBelakang' => 'nullable|string|max:255',
@@ -74,28 +81,41 @@ class ProfileController extends Controller
         $profile->address = !empty($fullAddress) ? $fullAddress : $profile->address;
 
         // Debug upload process
-        Log::info('File upload check: ', [
+        Log::info('File upload check details: ', [
             'has_file' => $request->hasFile('upload'),
             'file_valid' => $request->hasFile('upload') ? $request->file('upload')->isValid() : 'N/A',
-            'files' => $request->allFiles()
+            'files' => $request->allFiles(),
+            'content_type' => $request->hasFile('upload') ? $request->file('upload')->getMimeType() : 'N/A',
         ]);
 
         // Upload foto jika ada
-        if ($request->hasFile('upload') && $request->file('upload')->isValid()) {
-            // Hapus foto lama jika ada
-            if ($profile->photo && Storage::disk('public')->exists($profile->photo)) {
-                Storage::disk('public')->delete($profile->photo);
+        try {
+            if ($request->hasFile('upload')) {
+                $file = $request->file('upload');
+                
+                // Pastikan file valid
+                if ($file->isValid()) {
+                    // Hapus foto lama jika ada
+                    if ($profile->photo && Storage::disk('public')->exists($profile->photo)) {
+                        Storage::disk('public')->delete($profile->photo);
+                    }
+                    
+                    // Simpan foto baru dengan nama unik
+                    $fileName = 'profile_' . time() . '.' . $file->getClientOriginalExtension();
+                    $path = $file->storeAs('profile_photos', $fileName, 'public');
+                    $profile->photo = $path;
+                    
+                    Log::info('Profile photo uploaded successfully: ' . $path);
+                } else {
+                    Log::error('Uploaded file is not valid');
+                }
             }
-            
-            // Simpan foto baru
-            $path = $request->file('upload')->store('profile_photos', 'public');
-            $profile->photo = $path;
-            
-            Log::info('Profile photo uploaded: ' . $path);
+        } catch (\Exception $e) {
+            Log::error('Failed to upload profile photo: ' . $e->getMessage());
         }
 
         $profile->save();
 
         return redirect()->route('admin.profile.edit')->with('success', 'Profil berhasil diperbarui');
     }
-}
+}   

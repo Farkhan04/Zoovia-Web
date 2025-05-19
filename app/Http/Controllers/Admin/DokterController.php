@@ -57,8 +57,12 @@ class DokterController extends Controller
         if ($request->hasFile('foto_dokter')) {
             $file = $request->file('foto_dokter');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/dokter', $filename);
-            $dokter->foto_dokter = 'dokter/' . $filename;
+
+            // Simpan file ke disk 'public' langsung
+            Storage::disk('public')->putFileAs('dokter_photos', $file, $filename);
+
+            // Simpan path relatif terhadap disk 'public'
+            $dokter->foto_dokter = 'dokter_photos/' . $filename;
         }
 
         $dokter->save();
@@ -114,13 +118,17 @@ class DokterController extends Controller
         if ($request->hasFile('foto_dokter')) {
             // Hapus foto lama jika ada
             if ($dokter->foto_dokter) {
-                Storage::delete('public/' . $dokter->foto_dokter);
+                Storage::disk('public')->delete($dokter->foto_dokter);
             }
-            
+
             $file = $request->file('foto_dokter');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/dokter', $filename);
-            $dokter->foto_dokter = 'dokter/' . $filename;
+
+            // Simpan file ke disk 'public' langsung
+            Storage::disk('public')->putFileAs('dokter_photos', $file, $filename);
+
+            // Simpan path relatif terhadap disk 'public'
+            $dokter->foto_dokter = 'dokter_photos/' . $filename;
         }
 
         $dokter->save();
@@ -135,12 +143,12 @@ class DokterController extends Controller
     public function destroy($id)
     {
         $dokter = Dokter::findOrFail($id);
-        
+
         // Hapus foto jika ada
         if ($dokter->foto_dokter) {
             Storage::delete('public/' . $dokter->foto_dokter);
         }
-        
+
         $dokter->delete();
 
         return redirect()->route('admin.dokter.index')

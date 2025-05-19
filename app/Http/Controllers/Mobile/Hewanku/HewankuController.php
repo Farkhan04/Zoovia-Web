@@ -243,4 +243,75 @@ class HewankuController extends Controller
         }
     }
 
+    /**
+     * Menghapus data hewan berdasarkan ID.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id, Request $request): JsonResponse
+    {
+        try {
+            if ($request->expectsJson()) {
+                // Temukan hewan dengan ID yang diberikan
+                $hewan = Hewan::findOrFail($id);
+
+                // Hapus foto hewan jika ada
+                if ($hewan->foto_hewan && Storage::exists('public/' . str_replace('storage/', '', $hewan->foto_hewan))) {
+                    Storage::delete('public/' . str_replace('storage/', '', $hewan->foto_hewan));
+                }
+
+                // Cek apakah hewan terkait dengan rekam medis atau antrian
+                $hasRelations = false;
+                $relatedRecords = [];
+
+                // Periksa jika ada rekam medis yang terkait
+                if ($hewan->rekamMedis()->count() > 0) {
+                    $hasRelations = true;
+                    $relatedRecords[] = 'rekam medis';
+                }
+
+                // Periksa jika ada antrian yang terkait (tambahkan ini jika ada relasi dengan antrian)
+                if (method_exists($hewan, 'antrian') && $hewan->antrian()->count() > 0) {
+                    $hasRelations = true;
+                    $relatedRecords[] = 'antrian';
+                }
+
+                // Jika ada relasi yang terkait, berikan pesan error yang jelas
+                if ($hasRelations) {
+                    return response()->json([
+                        'status' => 'fail',
+                        'message' => 'Hewan tidak dapat dihapus karena masih memiliki data ' . implode(' dan ', $relatedRecords) . ' yang terkait.',
+                    ], 409); // Status 409 Conflict
+                }
+
+                // Hapus hewan dari database
+                $hewan->delete();
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Hewan berhasil dihapus.',
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Hanya untuk application/json',
+                ], 404);
+            }
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Hewan dengan ID yang diberikan tidak ditemukan
+            return response()->json([
+                'success' => false,
+                'message' => 'Hewan tidak ditemukan.',
+            ], 404); // Status 404 Not Found
+        } catch (Exception $e) {
+            // Tangani kesalahan lainnya
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat menghapus hewan.',
+                'error' => $e->getMessage(),
+            ], 500); // Status 500 Internal Server Error
+        }
+    }
+
 }

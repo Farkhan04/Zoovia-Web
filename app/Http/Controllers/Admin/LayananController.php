@@ -57,8 +57,12 @@ class LayananController extends Controller
         if ($request->hasFile('foto_layanan')) {
             $file = $request->file('foto_layanan');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/layanan', $filename);
-            $layanan->foto_layanan = 'layanan/' . $filename;
+
+            // Simpan file ke disk 'public' langsung
+            Storage::disk('public')->putFileAs('layanan_photos', $file, $filename);
+
+            // Simpan path relatif terhadap disk 'public'
+            $layanan->foto_layanan = 'layanan_photos/' . $filename;
         }
 
         $layanan->save();
@@ -115,13 +119,17 @@ class LayananController extends Controller
         if ($request->hasFile('foto_layanan')) {
             // Hapus foto lama jika ada
             if ($layanan->foto_layanan) {
-                Storage::delete('public/' . $layanan->foto_layanan);
+                Storage::disk('public')->delete($layanan->foto_layanan);
             }
-            
+
             $file = $request->file('foto_layanan');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/layanan', $filename);
-            $layanan->foto_layanan = 'layanan/' . $filename;
+
+            // Simpan file ke disk 'public' langsung
+            Storage::disk('public')->putFileAs('layanan_photos', $file, $filename);
+
+            // Simpan path relatif terhadap disk 'public'
+            $layanan->foto_layanan = 'layanan_photos/' . $filename;
         }
 
         $layanan->save();
@@ -129,19 +137,18 @@ class LayananController extends Controller
         return redirect()->route('admin.layanan.index')
             ->with('success', 'Data layanan berhasil diperbarui!');
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
         $layanan = Layanan::findOrFail($id);
-        
+
         // Hapus foto jika ada
         if ($layanan->foto_layanan) {
-            Storage::delete('public/' . $layanan->foto_layanan);
+            Storage::disk('public')->delete($layanan->foto_layanan);
         }
-        
+
         $layanan->delete();
 
         return redirect()->route('admin.layanan.index')

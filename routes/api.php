@@ -57,7 +57,7 @@ Route::middleware('api')->group(function () {
             Route::post('/hewan/create', 'store');
             Route::get('/hewan/user/{id}', 'getByUserId');
             Route::post('/hewan/{id}', 'update');
-            Route::delete('/hewan/{id}', 'update');
+            Route::delete('/hewan/{id}', 'destroy');
         });
 
         Route::controller(DokterController::class)->group(function () {

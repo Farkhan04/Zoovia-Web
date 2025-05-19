@@ -187,15 +187,14 @@ class ProfileControllerMobile extends Controller
 
             // Hapus foto lama jika ada
             if ($profile->photo) {
-                $oldPath = str_replace('storage/', '', $profile->photo);
-                Storage::disk('public')->delete($oldPath);
+                Storage::disk('public')->delete($profile->photo);
             }
 
             // Upload dan simpan foto baru
             if ($request->hasFile('profile_image')) {
                 $path = $request->file('profile_image')->store('profile_photos', 'public');
 
-                $profile->photo = 'storage/' . $path; 
+                $profile->photo = $path; 
 
                 $profile->save();
             }

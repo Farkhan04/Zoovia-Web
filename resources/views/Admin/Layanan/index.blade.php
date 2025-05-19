@@ -7,9 +7,6 @@
 <div class="page-header">
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="fw-bold"><i class="bx bx-clinic me-2 text-primary"></i>Kelola Layanan</h4>
-        <a href="{{ route('admin.layanan.create') }}" class="btn btn-primary">
-            <i class="bx bx-plus me-1"></i> Tambah Layanan
-        </a>
     </div>
 </div>
 
@@ -27,7 +24,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 text-end">
-                        <a href="{{ route('admin.layanan.create') }}" class="btn btn-outline-primary w-100">
+                        <a href="{{ route('admin.layanan.create') }}" class="btn btn-primary w-100">
                             <i class="bx bx-plus me-1"></i> Tambah Layanan Baru
                         </a>
                     </div>
@@ -100,17 +97,17 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('admin.layanan.show', $layanan->id) }}" class="btn btn-icon btn-sm btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
-                                                <i class="bx bx-show"></i>
+                                            <a href="{{ route('admin.layanan.show', $layanan->id) }}" class="btn btn-icon btn-md btn-primary me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+                                                <i class="bx bx-show" style="color: white;"></i>
                                             </a>
-                                            <a href="{{ route('admin.layanan.edit', $layanan->id) }}" class="btn btn-icon btn-sm btn-info me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                <i class="bx bx-edit"></i>
+                                            <a href="{{ route('admin.layanan.edit', $layanan->id) }}" class="btn btn-icon btn-md btn-info me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                <i class="bx bx-edit" style="color: white;"></i>
                                             </a>
                                             <form action="{{ route('admin.layanan.destroy', $layanan->id) }}" method="POST" class="d-inline delete-form">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-icon btn-sm btn-danger btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus" data-name="{{ $layanan->nama_layanan }}">
-                                                    <i class="bx bx-trash"></i>
+                                                <button type="button" class="btn btn-icon btn-md btn-danger btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus" data-name="{{ $layanan->nama_layanan }}">
+                                                    <i class="bx bx-trash" style="color: white;"></i>
                                                 </button>
                                             </form>
                                         </div>

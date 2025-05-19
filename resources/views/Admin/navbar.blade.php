@@ -21,7 +21,7 @@
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
                             @if(Auth::user()->profile && Auth::user()->profile->photo)
-                                <img src="{{ asset('storage/' . Auth::user()->profile->photo) }}" alt="profile" class="w-px-40 h-auto rounded-circle">
+                                <img src="{{ asset('storage/' . Auth::user()->profile->photo) }}" alt="profile" class="w-px-40 h-40 rounded-circle object-fit-cover">
                             @else
                                 <img src="{{ asset('Admin/assets/img/avatars/1.png') }}" alt="default" class="w-px-40 h-auto rounded-circle">
                             @endif

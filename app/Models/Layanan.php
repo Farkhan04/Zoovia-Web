@@ -11,7 +11,12 @@ class Layanan extends Model
 
     // Kolom yang dapat diisi (fillable)
     protected $fillable = [
-        'nama_layanan', 'harga_layanan', 'deskripsi_layanan', 'foto_layanan',
+        'nama_layanan',
+        'harga_layanan',
+        'deskripsi_layanan',
+        'foto_layanan',
+        'jam_operasional_mulai',
+        'jam_operasional_selesai',
     ];
 
     // Jika ingin mendefinisikan relasi, misalnya dengan model Dokter atau Antrian
