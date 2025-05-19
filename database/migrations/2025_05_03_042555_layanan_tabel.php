@@ -15,8 +15,8 @@ return new class extends Migration {
             $tableLayanan->string('nama_layanan'); // Nama layanan
             $tableLayanan->string('harga_layanan'); // Harga layanan
             $tableLayanan->text('deskripsi_layanan'); // Deskripsi layanan (seharusnya tipe text, bukan integer)
-            $tableLayanan->time('jam_operasional_mulai')->default('08:00')->after('deskripsi_layanan');
-            $tableLayanan->time('jam_operasional_selesai')->default('17:00')->after('jam_operasional_mulai');
+            $tableLayanan->time('jam_operasional_mulai')->default('08:00');
+            $tableLayanan->time('jam_operasional_selesai')->default('17:00');
             $tableLayanan->timestamps(); // Timestamps untuk created_at dan updated_at
         });
     }
