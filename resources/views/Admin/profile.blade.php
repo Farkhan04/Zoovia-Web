@@ -20,9 +20,6 @@
                         <button type="button" class="btn btn-primary btn-sm" id="upload-button">
                             <i class="bx bx-upload me-1"></i> Unggah Foto
                         </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" id="reset-avatar">
-                            <i class="bx bx-reset me-1"></i> Reset
-                        </button>
                     </div>
                 </div>
                 
