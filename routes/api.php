@@ -36,6 +36,9 @@ Route::middleware('api')->group(function () {
     Route::post('/otp/resend', [VerifikasiOtpController::class, 'resend'])->name('verification.resend');
     Route::controller(GantiPasswordController::class)->group(function () {
         Route::post('/ganti/password', 'gantiPassword');
+        Route::post('/password/forgot','forgotPassword');
+        Route::post('/password/verify-otp','verifyResetOtp');
+        Route::post('/password/reset', 'resetPassword');
     });
 
     Route::middleware(['auth:sanctum', EnsureFrontendRequestsAreStateful::class])->group(function () {

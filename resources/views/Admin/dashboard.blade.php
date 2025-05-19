@@ -188,8 +188,8 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('admin.antrian.show', $antrian->id) }}" class="btn btn-sm btn-icon btn-primary">
-                                        <i class="bx bx-show"></i>
+                                    <a href="{{ route('admin.antrian.show', $antrian->id) }}" class="btn btn-md btn-icon btn-primary">
+                                        <i class="bx bx-show" style="color: white;"></i>
                                     </a>
                                 </td>
                             </tr>
