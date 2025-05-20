@@ -90,11 +90,6 @@
                     <div>
                         <h5 class="card-title mb-1">Rekam Medis</h5>
                         <h2 class="fw-bold mb-0 text-warning" id="total-rekam">{{ $totalRekamMedis ?? 0 }}</h2>
-                        <p class="mb-0 mt-1">
-                            <span class="text-{{ $rekamMedisGrowth > 0 ? 'success' : ($rekamMedisGrowth < 0 ? 'danger' : 'muted') }} me-1">
-                                <i class="bx bx-{{ $rekamMedisGrowth > 0 ? 'up' : ($rekamMedisGrowth < 0 ? 'down' : 'minus') }}-arrow-alt"></i> {{ abs($rekamMedisGrowth) }}%
-                            </span> bulan ini
-                        </p>
                     </div>
                     <div class="avatar bg-label-warning p-2">
                         <i class="bx bx-file fs-2"></i>
@@ -233,9 +228,6 @@
                     </div>
                     @endforelse
                 </div>
-                <div class="text-center mt-3">
-                    <button type="button" class="btn btn-sm btn-outline-primary">Lihat Semua Aktivitas</button>
-                </div>
             </div>
         </div>
     </div>
@@ -247,7 +239,7 @@
     <div class="col-xl-6 col-lg-6 mb-4">
         <div class="card h-100">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Layanan Populer</h5>
+                <h5 class="card-title mb-0">Layanan</h5>
                 <a href="{{ route('admin.layanan.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
             </div>
             <div class="card-body">

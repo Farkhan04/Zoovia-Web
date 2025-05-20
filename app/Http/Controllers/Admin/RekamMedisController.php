@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hewan;
 use App\Models\RekamMedis;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RekamMedisController extends Controller
 {
@@ -16,25 +17,53 @@ class RekamMedisController extends Controller
      */
     public function index(Request $request)
     {
-        // Ambil semua hewan yang memiliki rekam medis
-        $query = Hewan::whereHas('rekamMedis');
+        try {
+            // Ambil semua hewan yang memiliki rekam medis
+            $query = Hewan::whereHas('rekamMedis');
 
-        // Filter pencarian jika ada
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('nama_hewan', 'like', '%' . $search . '%')
-                  ->orWhere('jenis_hewan', 'like', '%' . $search . '%');
-            });
+            // Filter pencarian jika ada
+            if ($request->has('search') && $request->search != '') {
+                $search = $request->search;
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama_hewan', 'like', '%' . $search . '%')
+                        ->orWhere('jenis_hewan', 'like', '%' . $search . '%');
+                });
+            }
+
+            // Filter berdasarkan jenis hewan jika ada
+            if ($request->has('filter') && $request->filter != '') {
+                if ($request->filter == 'Lainnya') {
+                    // Menampilkan semua hewan yang jenisnya bukan Kucing atau Anjing
+                    $query->whereNotIn('jenis_hewan', ['Kucing', 'Anjing']);
+                } else {
+                    // Menampilkan hanya hewan dengan jenis sesuai filter
+                    $query->where('jenis_hewan', $request->filter);
+                }
+            }
+
+            // Ambil hewan dengan rekam medis terbaru
+            $hewans = $query->with([
+                'rekamMedis' => function ($query) {
+                    $query->orderBy('tanggal', 'desc');
+                },
+                'rekamMedis.dokter'
+            ])->paginate(10);
+
+            // Ambil daftar unik jenis hewan untuk filter
+            $jenisHewan = Hewan::distinct()->pluck('jenis_hewan');
+
+            return view('Admin.RekamMedis.index', compact('hewans', 'jenisHewan'));
+
+        } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan saat memuat data'
+                ], 500);
+            }
+
+            return back()->with('error', 'Terjadi kesalahan saat memuat data');
         }
-
-        // Ambil hewan dengan rekam medis terbaru
-        $hewans = $query->with(['rekamMedis' => function($query) {
-            $query->orderBy('tanggal', 'desc');
-        }, 'rekamMedis.dokter'])
-        ->paginate(10);
-
-        return view('Admin.RekamMedis.index', compact('hewans'));
     }
 
     /**
@@ -47,7 +76,7 @@ class RekamMedisController extends Controller
             ->with('dokter')
             ->orderBy('tanggal', 'desc')
             ->get();
-        
+
         return view('Admin.RekamMedis.show', compact('hewan', 'rekamMedis'));
     }
 

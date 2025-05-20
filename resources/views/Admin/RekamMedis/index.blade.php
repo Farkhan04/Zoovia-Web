@@ -27,12 +27,11 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <select name="filter" class="form-select">
-                            <option value="">Semua Jenis Hewan</option>
+                        <select id="filterSelect" name="filter" class="form-select" onchange="this.form.submit()">
+                            <option value="" {{ request('filter') == '' ? 'selected' : '' }}>Semua Jenis Hewan</option>
                             <option value="Kucing" {{ request('filter') == 'Kucing' ? 'selected' : '' }}>Kucing</option>
                             <option value="Anjing" {{ request('filter') == 'Anjing' ? 'selected' : '' }}>Anjing</option>
-                            <option value="Burung" {{ request('filter') == 'Burung' ? 'selected' : '' }}>Burung</option>
-                            <option value="Lainnya" {{ request('filter') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            <option value="Lainnya" {{ request('filter') != 'Kucing' && request('filter') != 'Anjing' && request('filter') != '' ? 'selected' : '' }}>Lainnya</option>
                         </select>
                     </div>
                 </form>
@@ -106,11 +105,11 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('admin.rekammedis.show', $hewan->id) }}" class="btn btn-icon btn-sm btn-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
-                                                <i class="bx bx-show"></i>
+                                            <a href="{{ route('admin.rekammedis.show', $hewan->id) }}" class="btn btn-icon btn-md btn-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail">
+                                                <i class="bx bx-show" style="color: white;"></i>
                                             </a>
-                                            <button type="button" class="btn btn-icon btn-sm btn-success" onclick="tambahRekamMedis({{ $hewan->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Rekam Medis">
-                                                <i class="bx bx-plus"></i>
+                                            <button type="button" class="btn btn-icon btn-md btn-success" onclick="tambahRekamMedis({{ $hewan->id }})" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Rekam Medis">
+                                                <i class="bx bx-plus" style="color: white;"></i>
                                             </button>
                                         </div>
                                     </td>
@@ -138,16 +137,16 @@
                                                                     <td>{{ \Illuminate\Support\Str::limit($rekam->deskripsi, 100) }}</td>
                                                                     <td>
                                                                         <div class="d-flex">
-                                                                            <button class="btn btn-icon btn-sm btn-info me-1"
+                                                                            <button class="btn btn-icon btn-md btn-info me-1"
                                                                                 onclick="editRekam('{{ $rekam->id }}', '{{ $rekam->deskripsi }}', '{{ \Carbon\Carbon::parse($rekam->tanggal)->format('Y-m-d') }}')"
                                                                                 data-bs-toggle="modal" data-bs-target="#editModal">
-                                                                                <i class="bx bx-edit-alt"></i>
+                                                                                <i class="bx bx-edit-alt" style="color: white;"></i>
                                                                             </button>
                                                                             <form action="{{ route('admin.rekammedis.destroy', $rekam->id) }}" method="POST" class="d-inline delete-form">
                                                                                 @csrf
                                                                                 @method('DELETE')
-                                                                                <button type="button" class="btn btn-icon btn-sm btn-danger btn-delete">
-                                                                                    <i class="bx bx-trash"></i>
+                                                                                <button type="button" class="btn btn-icon btn-md btn-danger btn-delete">
+                                                                                    <i class="bx bx-trash" style="color: white;"></i>
                                                                                 </button>
                                                                             </form>
                                                                         </div>

@@ -23,11 +23,11 @@
                         <div class="input-group">
                             <span class="input-group-text"><i class="bx bx-search"></i></span>
                             <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan nama dokter, layanan..." value="{{ request('search') }}">
-                            <button type="submit" class="btn btn-primary">Cari</button>
+                            <button type="submit" class="btn btn-primary" onsubmit="window.location.href = `{{ route('admin.dokter.index') }}?search=${query}`;">Cari</button>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <select name="filter" class="form-select">
+                        <select name="filter" class="form-select" onchange="this.form.submit()">
                             <option value="">Semua Layanan</option>
                             @foreach(\App\Models\Layanan::all() as $layanan)
                                 <option value="{{ $layanan->id }}" {{ request('filter') == $layanan->id ? 'selected' : '' }}>{{ $layanan->nama_layanan }}</option>

@@ -16,8 +16,44 @@ class DokterController extends Controller
      */
     public function index()
     {
-        $dokters = Dokter::with('layanan')->latest()->get();
-        return view('admin.dokter.index', compact('dokters'));
+        try {
+            $query = request('search');
+            $filter = request('filter');
+
+            $dokters = Dokter::with('layanan')
+                ->when($query, function($q) use ($query) {
+                    return $q->where('nama_dokter', 'like', '%' . $query . '%')
+                             ->orWhereHas('layanan', function($q2) use ($query) {
+                                 $q2->where('nama_layanan', 'like', '%' . $query . '%');
+                             });
+                })
+                ->when($filter, function($q) use ($filter) {
+                    return $q->where('id_layanan', $filter);
+                })
+                ->latest()
+                ->get();
+
+            if(request()->ajax()) {
+                $view = view('admin.dokter.partial.table', compact('dokters'))->render();
+                
+                return response()->json([
+                    'status' => 'success',
+                    'table_data' => $view
+                ]);
+            }
+
+            return view('admin.dokter.index', compact('dokters'));
+            
+        } catch (\Exception $e) {
+            if(request()->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan saat memuat data'
+                ], 500);
+            }
+            
+            return back()->with('error', 'Terjadi kesalahan saat memuat data');
+        }
     }
 
     /**

@@ -116,7 +116,7 @@ class DashboardController extends Controller
                 return [
                     'type' => 'check-in',
                     'timestamp' => $antrian->created_at,
-                    'message' => "{$antrian->nama} check-in dengan {$antrian->hewan->nama_hewan}",
+                    'message' => "Antrian atas nama: {$antrian->nama} dengan hewannya {$antrian->hewan->nama_hewan} ({$antrian->hewan->jenis_hewan}) dipanggil",
                     'icon' => 'bx-check-circle',
                     'color' => 'success'
                 ];
@@ -131,7 +131,7 @@ class DashboardController extends Controller
                 return [
                     'type' => 'rekam-medis',
                     'timestamp' => $rekam->created_at,
-                    'message' => "Dr. {$rekam->dokter->nama_dokter} selesai memeriksa {$rekam->hewan->nama_hewan}",
+                    'message' => "Dr. {$rekam->dokter->nama_dokter} selesai memeriksa hewan milik ".ucwords(strtolower($rekam->hewan->user->name))." yaitu {$rekam->hewan->nama_hewan} ({$rekam->hewan->jenis_hewan})",
                     'icon' => 'bx-edit',
                     'color' => 'info'
                 ];

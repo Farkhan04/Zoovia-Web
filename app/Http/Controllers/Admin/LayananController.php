@@ -13,10 +13,35 @@ class LayananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $layanans = Layanan::latest()->get();
-        return view('admin.layanan.index', compact('layanans'));
+        try {
+            if ($request->has('search') && $request->search != '') {
+                $query = request('search');
+
+                $layanans = Layanan::when($query, function ($q) use ($query) {
+                    return $q->where('nama_layanan', 'like', '%' . $query . '%')
+                        ->orWhere('deskripsi_layanan', 'like', '%' . $query . '%')
+                        ->orWhere('harga_layanan', 'like', '%' . $query . '%');
+                })->latest()->get();
+
+                return view('admin.layanan.index', compact('layanans'));
+
+            }
+
+            $layanans = Layanan::latest()->get();
+            return view('admin.layanan.index', compact('layanans'));
+
+        } catch (\Exception $e) {
+            if (request()->ajax()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Terjadi kesalahan saat memuat data'
+                ], 500);
+            }
+
+            return back()->with('error', 'Terjadi kesalahan saat memuat data');
+        }
     }
 
     /**

@@ -20,6 +20,14 @@ class RekamMedis extends Model
         'tanggal',
     ];
 
+    protected $dates = [
+        'tanggal'
+    ];
+
+    protected $casts = [
+        'tanggal' => 'datetime',
+    ];
+
     /**
      * Relasi ke model Hewan.
      */
