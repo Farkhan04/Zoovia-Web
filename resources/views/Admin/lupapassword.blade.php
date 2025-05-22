@@ -11,12 +11,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo: Forgot Password Basic - Pages | Zoovia - Bootstrap Dashboard FREE</title>
+    <title>Lupa Password Admin Zoovia</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{'/Admin/assets/img/favicon/favicon.ico'}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="storage/logo.svg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,8 +69,8 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-1">Forgot Password? 🔒</h4>
-              <p class="mb-6">Enter your email and we'll send you instructions to reset your password</p>
+              <h4 class="mb-1">Lupa Password? 🔒</h4>
+              <p class="mb-6">Masukkan alamat email akun admin puskeswan dan kami akan mengirim kode otp dan instruksi untuk merubah password akun anda</p>
               <form id="formAuthentication" class="mb-6" action="index.html">
                 <div class="mb-6">
                   <label for="email" class="form-label">Email</label>
@@ -82,12 +82,12 @@
                     placeholder="Enter your email"
                     autofocus />
                 </div>
-                <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+                <button class="btn btn-primary d-grid w-100">Kirim Kode Otp</button>
               </form>
               <div class="text-center">
                 <a href="login" class="d-flex justify-content-center">
                   <i class="icon-base bx bx-chevron-left me-1"></i>
-                  Back to login
+                  Kembali ke Login
                 </a>
               </div>
             </div>

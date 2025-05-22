@@ -51,9 +51,7 @@ Route::middleware('api')->group(function () {
         });
 
         Route::controller(ProfileControllerMobile::class)->group(function () {
-            Route::post('/user/profile/create', 'createOrUpdate');
-            Route::get('/user/profile/{id}', 'show');
-            Route::post('/profile/image', 'uploadProfileImage');
+            Route::post('/user/profile/createOrUpdate', 'createOrUpdate');
         });
 
         Route::controller(HewankuController::class)->group(function () {

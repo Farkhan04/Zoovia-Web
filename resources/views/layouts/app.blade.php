@@ -10,7 +10,7 @@
     <title>@yield('title') - Zoovia Admin</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('Admin/assets/img/favicon/favicon.ico') }}">
+    <link type="image" href="{{asset('storage/logo.svg')}}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

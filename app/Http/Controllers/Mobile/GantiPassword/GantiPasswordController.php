@@ -3,10 +3,12 @@ namespace App\Http\Controllers\Mobile\GantiPassword;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Mobile\VerifikasiOTP\EmailVerifikasi as VerifikasiOTPEmailVerifikasi;
+use App\Jobs\SendOtpEmailJob;
 use App\Models\OtpCode;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,9 +43,10 @@ class GantiPasswordController extends Controller
     }
 
     // Fungsi untuk mengirimkan OTP untuk reset password
-    function forgotPassword(Request $request)
+    public function forgotPassword(Request $request)
     {
         try {
+            // Validate the email input
             $validator = Validator::make($request->all(), ['email' => 'required|email']);
 
             if ($validator->fails()) {
@@ -53,6 +56,7 @@ class GantiPasswordController extends Controller
                 ]);
             }
 
+            // Find the user by email
             $user = User::where('email', $request->email)->first();
 
             if ($user == null) {
@@ -62,9 +66,10 @@ class GantiPasswordController extends Controller
                 ]);
             }
 
+            // Generate OTP code
             $otpCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
 
-            // Simpan OTP ke database dengan tipe 'password_reset'
+            // Save OTP to database
             OtpCode::updateOrCreate(
                 ['user_id' => $user->id, 'type' => 'password_reset'],
                 [
@@ -74,9 +79,10 @@ class GantiPasswordController extends Controller
                 ]
             );
 
-            // Kirim email OTP
-            Mail::to($user->email)->send(new VerifikasiOTPEmailVerifikasi($otpCode, $user->name));
+            // Dispatch the job to send the OTP email
+            SendOtpEmailJob::dispatch($user, $otpCode);
 
+            // Respond with a success message
             return response()->json([
                 'status' => 'success',
                 'message' => 'Kode OTP untuk reset password telah dikirim ke email Anda',

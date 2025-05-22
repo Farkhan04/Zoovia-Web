@@ -8,12 +8,12 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Demo: Login Basic - Pages | Zoovia - Bootstrap Dashboard FREE</title>
+    <title>Login Admin Zoovia</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ '/Admin/assets/img/favicon/favicon.ico' }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="storage/logo.svg">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -66,8 +66,8 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1">Welcome to Zoovia! 👋</h4>
-                        <p class="mb-6">Please sign-in to your account and start the adventure</p>
+                        <h4 class="mb-1">Selamat Datang di Zoovia! 👋</h4>
+                        <p class="mb-6">Silahkan login menggunakan akun admin puskeswan yang kami berikan</p>
 
                         <form id="formAuthentication" class="mb-6" action="{{ route('login.post') }}" method="POST">
                             @csrf <!-- Laravel CSRF Token -->
@@ -93,7 +93,7 @@
                                         <label class="form-check-label" for="remember-me"> Remember Me </label>
                                     </div>
                                     <a href="lupapassword">
-                                        <span>Forgot Password?</span>
+                                        <span>Lupa Password?</span>
                                     </a>
                                 </div>
                             </div>

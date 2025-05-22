@@ -82,15 +82,16 @@ class ProfileControllerMobile extends Controller
                 }
 
                 // handle upload foto (jika ada)
-                if ($request->hasFile('photo')) {
+                if ($request->hasFile('photo') && $request) {
                     // hapus foto lama jika ada
                     if ($profile->photo) {
-                        Storage::delete($profile->photo);
+                        Storage::disk('public')->delete($profile->photo);
                     }
                     // simpan foto baru
-                    // Perbaikan pada createOrUpdate
-                    $urlToSaveToDB = $request->file('photo')->store('public/profile_photos');
-                    $profile->photo = url('storage/' . str_replace('public/', '', $urlToSaveToDB));
+                    $file = $request->file('photo');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    Storage::disk('public')->putFileAs('profile_photos', $file, $filename);
+                    $profile->photo = 'profile_photos/'.$filename;
                 }
 
                 // Simpan perubahan hanya jika ada perubahan
@@ -130,93 +131,6 @@ class ProfileControllerMobile extends Controller
                     'message' => 'Terjadi kesalahan pada server. Silakan coba lagi.',
                 ], 500);
             }
-        }
-    }
-
-    public function getProfilePhoto($filename)
-    {
-        $path = storage_path("app/private/profile_photos/{$filename}");
-
-        if (!Storage::exists("private/profile_photos/{$filename}") || !file_exists($path)) {
-            abort(404);
-        }
-
-        $file = file_get_contents($path);
-        $mimeType = mime_content_type($path);
-
-        return response($file, Response::HTTP_OK)
-            ->header('Content-Type', $mimeType);
-    }
-
-    public function uploadProfileImage(Request $request)
-    {
-        // Validasi
-        $validator = Validator::make($request->all(), [
-            'profile_image' => 'required|image|mimes:jpg,jpeg,png|max:5048',
-        ], [
-            'profile_image.required' => 'Foto profil wajib diunggah',
-            'profile_image.image' => 'File harus berupa gambar (JPG/PNG)',
-            'profile_image.max' => 'Ukuran foto maksimal 5 MB',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
-        // Cari user berdasarkan token
-        $user = auth()->user();
-        if (!$user) {
-            return response()->json([
-                'status' => 'fail',
-                'message' => 'User tidak ditemukan',
-            ], 404);
-        }
-
-        try {
-            DB::beginTransaction();
-
-            // Ambil atau buat profil user
-            $profile = UserProfile::firstOrCreate(
-                ['user_id' => $user->id],
-                ['address' => null]
-            );
-
-            // Hapus foto lama jika ada
-            if ($profile->photo) {
-                Storage::disk('public')->delete($profile->photo);
-            }
-
-            // Upload dan simpan foto baru
-            if ($request->hasFile('profile_image')) {
-                $path = $request->file('profile_image')->store('profile_photos', 'public');
-
-                $profile->photo = $path; 
-
-                $profile->save();
-            }
-
-            DB::commit();
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Foto profil berhasil diperbarui',
-                'data' => [
-                    'photo' => $profile->photo
-                ],
-            ], 200);
-
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            Log::error('[UploadProfileImage] ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
-
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Terjadi kesalahan pada server. Silakan coba lagi.',
-            ], 500);
         }
     }
 }
