@@ -306,23 +306,23 @@
             $('.bs-toast').toast('hide');
         }, 3000);
         
-        // Konfigurasi Pusher
-        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
-            cluster: "{{ env('PUSHER_APP_CLUSTER') }}",
-            encrypted: true
-        });
+        // // Konfigurasi Pusher
+        // var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+        //     cluster: "{{ env('PUSHER_APP_CLUSTER') }}",
+        //     encrypted: true
+        // });
         
-        // Subscribe ke channel 'antrian'
-        var channel = pusher.subscribe('antrian');
+        // // Subscribe ke channel 'antrian'
+        // var channel = pusher.subscribe('antrian');
         
-        // Listener untuk event AntrianUpdated
-        channel.bind('App\\Events\\AntrianUpdated', function(data) {
-            // Jika ini adalah antrian yang sedang dilihat dan statusnya berubah
-            if (data.antrian.id == {{ $antrian->id }} && data.antrian.status != '{{ $antrian->status }}') {
-                // Refresh halaman untuk mendapatkan informasi terbaru
-                location.reload();
-            }
-        });
+        // // Listener untuk event AntrianUpdated
+        // channel.bind('App\\Events\\AntrianUpdated', function(data) {
+        //     // Jika ini adalah antrian yang sedang dilihat dan statusnya berubah
+        //     if (data.antrian.id == {{ $antrian->id }} && data.antrian.status != '{{ $antrian->status }}') {
+        //         // Refresh halaman untuk mendapatkan informasi terbaru
+        //         location.reload();
+        //     }
+        // });
     </script>
 </body>
 

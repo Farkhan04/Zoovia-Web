@@ -6,6 +6,8 @@
     <meta name="description" content="@yield('meta_description', 'Zoovia - Klinik Hewan')">
     <meta name="keywords" content="klinik hewan, dokter hewan, layanan hewan, zoovia">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="pusher-key" content="{{ env('PUSHER_APP_KEY') }}">
+    <meta name="pusher-cluster" content="{{ env('PUSHER_APP_CLUSTER') }}">
 
     <title>@yield('title') - Zoovia Admin</title>
 
@@ -41,6 +43,7 @@
     @stack('styles')
 
     <!-- Helpers -->
+     @vite(['resources/js/app.js'])
     <script src="{{ asset('Admin/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('Admin/assets/js/config.js') }}"></script>
 </head>

@@ -19,7 +19,7 @@ class RegisterController
             $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'phone' => 'required|string|unique:users,no_hp',
+                'phone' => 'required|string|unique:users,no_hp|min:10|max:15',
                 'password' => 'required|string|min:6|confirmed',
             ]);
 

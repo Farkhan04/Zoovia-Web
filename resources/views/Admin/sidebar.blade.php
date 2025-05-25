@@ -1,9 +1,53 @@
+<style>
+    /* Sidebar utama warna ungu */
+    #layout-menu {
+        background-color: #2B0875 !important;
+    }
+
+    /* Header brand/logo */
+    #layout-menu .app-brand {
+        background-color: #340d85 !important;
+    }
+
+    /* Teks nama brand */
+    #layout-menu .app-brand-text {
+        color: #ffffff !important;
+    }
+
+    /* Link menu & teks */
+    #layout-menu .menu-link {
+        color: #ffffff !important;
+    }
+
+    /* Ikon menu */
+    #layout-menu .menu-icon {
+        color: #ffffff !important;
+    }
+
+    /* Judul grup menu */
+    #layout-menu .menu-header {
+        color: #ffffff !important;
+    }
+
+    /* Hover efek */
+    #layout-menu .menu-link:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #ffffff !important;
+    }
+
+    /* Item aktif */
+    #layout-menu .menu-item.active>.menu-link {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: #ffffff !important;
+    }
+</style>
+
 <!-- Menu -->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                
+
             </span>
             <span class="app-brand-text demo menu-text fw-bold ms-2">Zoovia</span>
         </a>
@@ -66,7 +110,7 @@
 
         <!-- Divider -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Pengaturan</span>
+            <span class="menu-header-tex text-white">Pengaturan</span>
         </li>
 
         <!-- Pengaturan Profil -->

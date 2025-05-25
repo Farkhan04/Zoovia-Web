@@ -3,6 +3,77 @@
 @section('title', 'Dashboard Puskeswan')
 
 @section('content')
+
+<!-- Toast Notification Container -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+    @if (session('status'))
+        <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bx bx-check-circle me-2"></i>
+                    {{ session('status') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div id="errorToast" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bx bx-error-circle me-2"></i>
+                    {{ session('error') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('warning'))
+        <div id="warningToast" class="toast align-items-center text-white bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bx bx-error me-2"></i>
+                    {{ session('warning') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
+    @if (session('info'))
+        <div id="infoToast" class="toast align-items-center text-white bg-info border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bx bx-info-circle me-2"></i>
+                    {{ session('info') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+</div>
+
+<!-- Modal Success (Alternative untuk important messages) -->
+@if (session('status'))
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="mb-3">
+                        <i class="bx bx-check-circle text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="mb-2">Berhasil!</h5>
+                    <p class="mb-3">{{ session('status') }}</p>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<!-- KONTEN DASHBOARD YANG SUDAH ADA -->
 <div class="row">
     <div class="col-12 mb-4">
         <div class="card">
@@ -144,6 +215,8 @@
         </div>
     </div>
 </div>
+
+<!-- Rest of your existing dashboard content... -->
 <!-- Antrian dan Aktivitas -->
 <div class="row mb-4">
     <!-- Antrian Aktif -->
@@ -465,12 +538,52 @@
     .badge {
         padding: 0.5em 0.8em;
     }
+
+    /* Toast styling */
+    .toast-container .toast {
+        margin-bottom: 1rem;
+    }
+    
+    /* Auto-hide alert animation */
+    .alert.fade-out {
+        transition: opacity 0.5s ease-out;
+        opacity: 0;
+    }
 </style>
 @endpush
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Bootstrap toasts
+        const toastElements = document.querySelectorAll('.toast');
+        toastElements.forEach(function(element) {
+            const toast = new bootstrap.Toast(element, {
+                autohide: true,
+                delay: 5000 // Auto-hide after 5 seconds
+            });
+            toast.show();
+        });
+
+        // Initialize modal if exists
+        const successModal = document.getElementById('successModal');
+        if (successModal) {
+            const modal = new bootstrap.Modal(successModal);
+            // Uncomment the line below if you want the modal to show automatically
+            // modal.show();
+        }
+
+        // Auto-hide alerts after 5 seconds
+        const alerts = document.querySelectorAll('.alert:not(.alert-dismissible)');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.classList.add('fade-out');
+                setTimeout(function() {
+                    alert.remove();
+                }, 500);
+            }, 5000);
+        });
+
         // Inisialisasi tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function(tooltipTriggerEl) {

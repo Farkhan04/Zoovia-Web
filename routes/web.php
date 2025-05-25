@@ -39,7 +39,19 @@ Route::get('/pelayanan', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/lupapassword', [LupaPasswordController::class, 'index']);
+
+// Lupa Password Routes
+Route::prefix('lupapassword')->name('lupa.password')->group(function () {
+    Route::get('/', [LupaPasswordController::class, 'index']);
+    Route::post('/send-otp', [LupaPasswordController::class, 'sendOtp'])->name('.send');
+    
+    Route::get('/verify', [LupaPasswordController::class, 'showVerifyForm'])->name('.verify');
+    Route::post('/verify-otp', [LupaPasswordController::class, 'verifyOtp'])->name('.verify.post');
+    Route::post('/resend-otp', [LupaPasswordController::class, 'resendOtp'])->name('.resend');
+    
+    Route::get('/reset', [LupaPasswordController::class, 'showResetForm'])->name('.reset');
+    Route::post('/reset-password', [LupaPasswordController::class, 'resetPassword'])->name('.reset.post');
+});
 
 // Protected Admin Routes
 Route::middleware(['auth'])->group(function () {
@@ -49,7 +61,6 @@ Route::middleware(['auth'])->group(function () {
     // Ganti Password
     Route::get('/ganti-sandi', [GantiSandiController::class, 'showChangePasswordForm'])->name('admin.gantisandi');
     Route::post('/ganti-sandi', [GantiSandiController::class, 'changePassword'])->name('change.password.form');
-    Route::post('/ganti-sandi', [GantiSandiController::class, 'changePassword'])->name('admin.gantisandi');
 
     // Admin routes with admin prefix and name
     Route::prefix('admin')->name('admin.')->group(function () {

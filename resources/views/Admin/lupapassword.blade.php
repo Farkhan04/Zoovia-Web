@@ -63,29 +63,67 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center mb-6">
-                <a href="index.html" class="app-brand-link gap-2">
-                 
+                <a href="{{url('/')}}" class="app-brand-link gap-2">
                   <span class="app-brand-text demo text-heading fw-bold">Zoovia</span>
                 </a>
               </div>
               <!-- /Logo -->
               <h4 class="mb-1">Lupa Password? 🔒</h4>
               <p class="mb-6">Masukkan alamat email akun admin puskeswan dan kami akan mengirim kode otp dan instruksi untuk merubah password akun anda</p>
-              <form id="formAuthentication" class="mb-6" action="index.html">
+              
+              <!-- Alert Messages -->
+              @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{ session('success') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ session('error') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
+              <form id="formAuthentication" class="mb-6" action="{{ route('lupa.password.send') }}" method="POST">
+                @csrf
                 <div class="mb-6">
                   <label for="email" class="form-label">Email</label>
                   <input
-                    type="text"
-                    class="form-control"
+                    type="email"
+                    class="form-control @error('email') is-invalid @enderror"
                     id="email"
                     name="email"
-                    placeholder="Enter your email"
-                    autofocus />
+                    placeholder="Masukkan email anda"
+                    value="{{ old('email') }}"
+                    autofocus 
+                    required />
+                  @error('email')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
                 </div>
-                <button class="btn btn-primary d-grid w-100">Kirim Kode Otp</button>
+                <button type="submit" class="btn btn-primary d-grid w-100" id="submitBtn">
+                  <span id="btnText">Kirim Kode OTP</span>
+                  <span id="btnSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                </button>
               </form>
+              
               <div class="text-center">
-                <a href="login" class="d-flex justify-content-center">
+                <a href="{{ route('login') }}" class="d-flex justify-content-center">
                   <i class="icon-base bx bx-chevron-left me-1"></i>
                   Kembali ke Login
                 </a>
@@ -98,8 +136,6 @@
     </div>
 
     <!-- / Content -->
-
-
 
     <!-- Core JS -->
 
@@ -121,6 +157,29 @@
     <script src="{{'/Admin/assets/js/main.js'}}"></script>
 
     <!-- Page JS -->
+    <script>
+      // Loading state untuk button submit
+      document.getElementById('formAuthentication').addEventListener('submit', function() {
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        
+        submitBtn.disabled = true;
+        btnText.classList.add('d-none');
+        btnSpinner.classList.remove('d-none');
+      });
+
+      // Auto hide alerts after 5 seconds
+      setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+          const closeBtn = alert.querySelector('.btn-close');
+          if (closeBtn) {
+            closeBtn.click();
+          }
+        });
+      }, 5000);
+    </script>
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
