@@ -114,9 +114,9 @@ class LandingController extends Controller
     public function about()
     {
          $doctors = Dokter::all();
-
+         $layanan = Layanan::all(); 
         // Return the landing page view with articles and doctors data
-        return view('Landing.about', compact('doctors'));
+        return view('Landing.about', compact('doctors', 'layanan'));
     }
 
     /**

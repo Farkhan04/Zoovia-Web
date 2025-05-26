@@ -97,6 +97,52 @@
         </div>
         <!-- Hero End -->
 
+        <div class="jadwal-area section-padding30">
+            <div class="container">
+                <!-- Section Title -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="section-tittle text-center mb-100">
+                            <span>Layanan Puskeswan Kami</span>
+                            <h2>Jadwal Layanan</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jadwal Layanan Table -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="table table-striped table-bordered"
+                            style="width: 100%; font-size: 1.5rem; padding: 15px; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #f8f9fa;">
+                                    <th scope="col" style="padding: 20px; text-align: center;">Nama Layanan</th>
+                                    <th scope="col" style="padding: 20px; text-align: center;">Jam Buka</th>
+                                    <th scope="col" style="padding: 20px; text-align: center;">Jam Tutup</th>
+                                    <th scope="col" style="padding: 20px; text-align: center;">Deskripsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($layanan as $service)
+                                    <tr style="text-align: center;">
+                                        <td style="padding: 20px;">{{ $service->nama_layanan }}</td>
+                                        <td style="padding: 20px;">
+                                            {{ \Carbon\Carbon::parse($service->jam_operasional_mulai)->format('H:i') }}</td>
+                                        <td style="padding: 20px;">
+                                            {{ \Carbon\Carbon::parse($service->jam_operasional_selesai)->format('H:i') }}
+                                        </td>
+                                        <td style="padding: 20px;">{{ Str::limit($service->deskripsi_layanan, 100) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <!--? Gallery Area Start -->
         <div class="gallery-area section-padding30">
             <div class="container">

@@ -50,7 +50,7 @@
 </head>
 
 <body>
-    <!-- Content -->
+
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
@@ -71,6 +71,12 @@
 
                         <form id="formAuthentication" class="mb-6" action="{{ route('login.post') }}" method="POST">
                             @csrf <!-- Laravel CSRF Token -->
+                            <!-- Content -->
+                            @if ($errors->has('email'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('email') }}
+                                </div>
+                            @endif
                             <div class="mb-6">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email"
