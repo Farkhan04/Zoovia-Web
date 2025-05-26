@@ -1,5 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -47,8 +48,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="#"><img src="{{ 'Landing/assets/img/logo/logozoovia.png' }}"
-                                        alt=""></a>
+                                <a href="#"><img src="{{ 'Landing/assets/img/logo/logozoovia.png' }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -148,8 +148,7 @@
                                 profesional dan fasilitas yang memadai untuk menangani berbagai kondisi kesehatan hewan.
                             </p>
                             <div class="about-btn1 mb-30">
-                                <a href="about" class="btn about-btn">Temukan Dokter .<i
-                                        class="ti-arrow-right"></i></a>
+                                <a href="#dokter-section" class="btn about-btn">Temukan Dokter .<i class="ti-arrow-right"></i></a>
                             </div>
                             <div class="about-btn1 mb-30">
                                 <a href="about" class="btn about-btn2">Jadwal <i class="ti-arrow-right"></i></a>
@@ -188,29 +187,25 @@
                     <div class="col-lg-12">
                         <div class="depart_ment_tab mb-30">
                             <!-- Tabs Buttons -->
-                            <ul class="nav" id="myTab" role="tablist"
-                                style="padding-left: 0; margin-bottom: 0;">
+                            <ul class="nav" id="myTab" role="tablist" style="padding-left: 0; margin-bottom: 0;">
                                 <li class="nav-item" style="margin-right: 5px;">
                                     <!-- Menambahkan margin sedikit untuk jarak antar tab -->
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
-                                        role="tab" aria-controls="profile" aria-selected="false"
-                                        style="padding: 8px 15px;">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                        aria-controls="profile" aria-selected="false" style="padding: 8px 15px;">
                                         <i class="flaticon-cardiovascular"></i>
                                         <h4 style="margin-bottom: 0;">Pemeriksaan Darurat</h4>
                                     </a>
                                 </li>
                                 <li class="nav-item" style="margin-right: 5px;">
-                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact"
-                                        role="tab" aria-controls="contact" aria-selected="false"
-                                        style="padding: 8px 15px;">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
+                                        aria-controls="contact" aria-selected="false" style="padding: 8px 15px;">
                                         <i class="flaticon-ear"></i>
                                         <h4 style="margin-bottom: 0;">Konsultasi Medis</h4>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="Blood-tab" data-toggle="tab" href="#Blood"
-                                        role="tab" aria-controls="contact" aria-selected="false"
-                                        style="padding: 8px 15px;">
+                                    <a class="nav-link" id="Blood-tab" data-toggle="tab" href="#Blood" role="tab"
+                                        aria-controls="contact" aria-selected="false" style="padding: 8px 15px;">
                                         <i class="flaticon-cell"></i>
                                         <h4 style="margin-bottom: 0;">Perawatan Kesehatan</h4>
                                     </a>
@@ -222,21 +217,22 @@
 
                 <div class="dept_main_info white-bg">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel"
-                            aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <!-- single_content  -->
                             <div class="row align-items-center no-gutters">
                                 <div class="col-lg-7">
                                     <div class="dept_info">
                                         <h3>Pelayanan Terbaik</h3>
-                                        <p>Puskeswan kami menyediakan berbagai layanan kesehatan hewan, termasuk Pemeriksaan Darurat, Konsultasi Medis, dan Perawatan Kesehatan. Kami selalu berkomitmen untuk memberikan pelayanan terbaik dengan perhatian penuh terhadap kesejahteraan hewan Anda. </p>
+                                        <p>Puskeswan kami menyediakan berbagai layanan kesehatan hewan, termasuk
+                                            Pemeriksaan Darurat, Konsultasi Medis, dan Perawatan Kesehatan. Kami selalu
+                                            berkomitmen untuk memberikan pelayanan terbaik dengan perhatian penuh
+                                            terhadap kesejahteraan hewan Anda. </p>
                                         <a href="#"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}"
-                                            alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -255,8 +251,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}"
-                                            alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -275,8 +270,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}"
-                                            alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -295,8 +289,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}"
-                                            alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -380,7 +373,7 @@
         <!--All startups End -->
         <!--? Team Start -->
         <div class="team-area section-padding30">
-            <div class="container">
+            <div class="container" id="dokter-section">
                 <!-- Section Tittle -->
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
@@ -521,52 +514,102 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-blogs mb-30">
-                            <div class="blog-img">
-                                <img src="{{ 'Landing/assets/img/gallery/blog1.png' }}" alt="">
-                            </div>
-                            <div class="blogs-cap">
-                                <div class="date-info">
-                                    <span>Health</span>
-                                    <p>Nov 30, 2020</p>
+                    @if(isset($artikels) && $artikels->count() > 0)
+                        @foreach($artikels as $artikel)
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="single-blogs mb-30">
+                                    <div class="blog-img">
+                                        @if($artikel->thumbnail)
+                                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}" alt="{{ $artikel->judul }}"
+                                                style="width: 100%; height: 250px; object-fit: cover;">
+                                        @else
+                                            <img src="{{ asset('Landing/assets/img/gallery/blog1.png') }}"
+                                                alt="{{ $artikel->judul }}" style="width: 100%; height: 250px; object-fit: cover;">
+                                        @endif
+                                    </div>
+                                    <div class="blogs-cap">
+                                        <div class="date-info">
+                                            <span>{{ Str::limit($artikel->penulis, 15) }}</span>
+                                            <p>{{ $artikel->tanggal->format('M d, Y') }}</p>
+                                        </div>
+                                        <h4>
+                                            <a href="{{ route('article.detail', $artikel->id) }}">
+                                                {{ Str::limit($artikel->judul, 60) }}
+                                            </a>
+                                        </h4>
+                                        <p class="blog-excerpt">{{ Str::limit(strip_tags($artikel->deskripsi), 100) }}</p>
+                                        <a href="{{ route('article.detail', $artikel->id) }}" class="read-more1">Read more</a>
+                                    </div>
                                 </div>
-                                <h4><a href="blog_details">Amazing Places To Visit In Summer</a></h4>
-                                <a href="blog_details" class="read-more1">Read more</a>
+                            </div>
+                        @endforeach
+                    @else
+                        <!-- Default articles when no data from database -->
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-blogs mb-30">
+                                <div class="blog-img">
+                                    <img src="{{ asset('Landing/assets/img/gallery/blog1.png') }}"
+                                        alt="Tips Kesehatan Hewan" style="width: 100%; height: 250px; object-fit: cover;">
+                                </div>
+                                <div class="blogs-cap">
+                                    <div class="date-info">
+                                        <span>Health</span>
+                                        <p>Nov 30, 2020</p>
+                                    </div>
+                                    <h4><a href="#">Tips Menjaga Kesehatan Hewan Peliharaan</a></h4>
+                                    <p class="blog-excerpt">Panduan lengkap untuk menjaga kesehatan hewan peliharaan Anda
+                                        agar tetap sehat dan bahagia.</p>
+                                    <a href="#" class="read-more1">Read more</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-blogs mb-30">
-                            <div class="blog-img">
-                                <img src="{{ 'Landing/assets/img/gallery/blog2.png' }}" alt="">
-                            </div>
-                            <div class="blogs-cap">
-                                <div class="date-info">
-                                    <span>Checkup</span>
-                                    <p>Nov 30, 2020</p>
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-blogs mb-30">
+                                <div class="blog-img">
+                                    <img src="{{ asset('Landing/assets/img/gallery/blog2.png') }}" alt="Pemeriksaan Rutin"
+                                        style="width: 100%; height: 250px; object-fit: cover;">
                                 </div>
-                                <h4><a href="blog_details">Developing Creativithout Losing Visual</a></h4>
-                                <a href="blog_details" class="read-more1">Read more</a>
+                                <div class="blogs-cap">
+                                    <div class="date-info">
+                                        <span>Checkup</span>
+                                        <p>Nov 30, 2020</p>
+                                    </div>
+                                    <h4><a href="#">Pentingnya Pemeriksaan Rutin Hewan</a></h4>
+                                    <p class="blog-excerpt">Mengapa pemeriksaan rutin sangat penting untuk mencegah penyakit
+                                        pada hewan peliharaan.</p>
+                                    <a href="#" class="read-more1">Read more</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-blogs mb-30">
-                            <div class="blog-img">
-                                <img src="{{ 'Landing/assets/img/gallery/blog3.png' }}" alt="">
-                            </div>
-                            <div class="blogs-cap">
-                                <div class="date-info">
-                                    <span>Operation</span>
-                                    <p>Nov 30, 2020</p>
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <div class="single-blogs mb-30">
+                                <div class="blog-img">
+                                    <img src="{{ asset('Landing/assets/img/gallery/blog3.png') }}" alt="Operasi Hewan"
+                                        style="width: 100%; height: 250px; object-fit: cover;">
                                 </div>
-                                <h4><a href="blog_details">Winter Photography Tips from Glenn</a></h4>
-                                <a href="blog_details" class="read-more1">Read more</a>
+                                <div class="blogs-cap">
+                                    <div class="date-info">
+                                        <span>Operation</span>
+                                        <p>Nov 30, 2020</p>
+                                    </div>
+                                    <h4><a href="#">Prosedur Operasi Hewan yang Aman</a></h4>
+                                    <p class="blog-excerpt">Informasi tentang prosedur operasi hewan dan persiapan yang
+                                        diperlukan.</p>
+                                    <a href="#" class="read-more1">Read more</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
+
+                <!-- Show more articles link if there are more than 3 articles
+                @if(isset($total_articles) && $total_articles > 3)
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-lg-12 text-center">
+                            <a href="{{ route('articles.index') }}" class="btn btn-outline-primary">Lihat Semua Artikel</a>
+                        </div>
+                    </div>
+                @endif -->
             </div>
         </div>
         <!-- Blog End -->
@@ -591,7 +634,8 @@
                                 <div class="footer-tittle">
                                     <h4>About Us</h4>
                                     <div class="footer-pera">
-                                        <p class="info1">Kami menyediakan layanan kesehatan hewan terbaik untuk hewan peliharaan. </p>
+                                        <p class="info1">Kami menyediakan layanan kesehatan hewan terbaik untuk hewan
+                                            peliharaan. </p>
                                         <p class="info1">Hubungi kontak kami dibawah ini.</p>
                                     </div>
                                 </div>
@@ -608,8 +652,7 @@
                                     <div id="mc_embed_signup">
                                         <form target="_blank"
                                             action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                            method="get" class="subscribe_form relative mail_part"
-                                            novalidate="true">
+                                            method="get" class="subscribe_form relative mail_part" novalidate="true">
                                             <div class="mt-10 info"></div>
                                         </form>
                                     </div>
@@ -626,8 +669,8 @@
                                     Copyright &copy;
                                     <script>
                                         document.write(new Date().getFullYear());
-                                    </script> All rights reserved | This template is made with <i
-                                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    </script> All rights reserved | This template is made with <i class="fa fa-heart"
+                                        aria-hidden="true"></i> by <a href="https://colorlib.com"
                                         target="_blank">Colorlib</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>

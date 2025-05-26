@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RekamMedisController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LupaPasswordController;
+use App\Http\Controllers\Admin\LandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,22 +19,16 @@ use App\Http\Controllers\Auth\LupaPasswordController;
 |--------------------------------------------------------------------------
 */
 
-// Landing Page Routes
-Route::get('/', function () {
-    return view('Landing.index');
-});
-Route::get('/index', function () {
-    return view('Landing.index');
-});
-Route::get('/about', function () {
-    return view('Landing.about');
-});
-Route::get('/dokter', function () {
-    return view('Landing.doctor');
-});
-Route::get('/pelayanan', function () {
-    return view('Landing.pelayanan');
-});
+// Landing Page Routes - Using LandingController
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/index', [LandingController::class, 'index'])->name('landing.home');
+Route::get('/about', [LandingController::class, 'about'])->name('landing.about');
+Route::get('/dokter', [LandingController::class, 'doctors'])->name('landing.doctors');
+Route::get('/pelayanan', [LandingController::class, 'services'])->name('landing.services');
+
+// Articles Routes
+Route::get('/articles', [LandingController::class, 'articles'])->name('articles.index');
+Route::get('/artikel/{id}', [LandingController::class, 'articleDetail'])->name('article.detail');
 
 // Authentication Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
