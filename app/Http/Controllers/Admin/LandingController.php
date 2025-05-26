@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
+use App\Models\Dokter;
 use Illuminate\Support\Facades\Log;
 
 class LandingController extends Controller
@@ -25,14 +26,20 @@ class LandingController extends Controller
             // Get total articles count for "show more" button
             $total_articles = Artikel::count();
 
-            return view('Landing.index', compact('artikels', 'total_articles'));
+            // Get all doctors data
+            $doctors = Dokter::all();
+
+            // Return the landing page view with articles and doctors data
+            return view('Landing.index', compact('artikels', 'total_articles', 'doctors'));
+
         } catch (\Exception $e) {
             Log::error('Error loading landing page: ' . $e->getMessage());
 
-            // Return view with empty collection if error occurs
+            // Return view with empty collections if error occurs
             $artikels = collect();
             $total_articles = 0;
-            return view('Landing.index', compact('artikels', 'total_articles'));
+            $doctors = collect();
+            return view('Landing.index', compact('artikels', 'total_articles', 'doctors'));
         }
     }
 

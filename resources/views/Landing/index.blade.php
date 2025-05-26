@@ -148,7 +148,8 @@
                                 profesional dan fasilitas yang memadai untuk menangani berbagai kondisi kesehatan hewan.
                             </p>
                             <div class="about-btn1 mb-30">
-                                <a href="#dokter-section" class="btn about-btn">Temukan Dokter .<i class="ti-arrow-right"></i></a>
+                                <a href="#dokter-section" class="btn about-btn">Temukan Dokter .<i
+                                        class="ti-arrow-right"></i></a>
                             </div>
                             <div class="about-btn1 mb-30">
                                 <a href="about" class="btn about-btn2">Jadwal <i class="ti-arrow-right"></i></a>
@@ -158,12 +159,19 @@
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <!-- about-img -->
-                        <div class="about-img ">
+                        <div class="about-img">
+                            <!-- Gambar untuk layar besar (desktop) -->
                             <div class="about-font-img d-none d-lg-block">
-                                <img src="{{ 'Landing/assets/img/gallery/about2.png' }}" alt="">
+                                <img src="{{ 'Landing/assets/img/gallery/about2.jpg' }}" alt="Gambar Layar Besar"
+                                    class="img-fluid"
+                                    style="max-width: 556px; height: 617px; object-fit: cover; margin: 0 auto; border-radius: 15px;">
                             </div>
-                            <div class="about-back-img ">
-                                <img src="{{ 'Landing/assets/img/gallery/about1.png' }}" alt="">
+
+                            <!-- Gambar untuk layar kecil (tablet/mobile) -->
+                            <div class="about-back-img d-block d-lg-none">
+                                <img src="{{ 'Landing/assets/img/gallery/about1.jpg' }}" alt="Gambar Layar Kecil"
+                                    class="img-fluid"
+                                    style="max-width: 360px; height: 617px; object-fit: cover; margin: 0 auto; border-radius: 15px;">
                             </div>
                         </div>
                     </div>
@@ -232,7 +240,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -251,7 +259,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +278,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -289,7 +297,7 @@
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/department_man.png' }}" alt="">
+                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -320,19 +328,19 @@
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery1.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri1.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery2.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri2.jpg);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery3.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri3.webp);"></div>
                                 </div>
                             </div>
                         </div>
@@ -343,19 +351,19 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery4.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri4.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery5.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri5.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url(Landing/assets/img/gallery/gallery6.png);"></div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri6.jpg);"></div>
                                 </div>
                             </div>
                         </div>
@@ -383,62 +391,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- single Tem -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team2.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Alvin Maxwell</a></h3>
-                                <span>Creative UI Designer</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <!-- Display doctors data -->
+                <div class="doctors d-flex flex-row flex-wrap">
+                    @foreach($doctors as $doctor)
+                        <div class="col-md-4 col-sm-6 mb-4">
+                            <!-- Doctor Card -->
+                            <div class="card">
+                                <!-- Card Image -->
+                                <img src="{{ asset('storage/' . $doctor->foto_dokter) }}" alt="{{ $doctor->nama_dokter }}"
+                                    class="card-img-top" style="max-height: 250px; object-fit: cover;">
+
+                                <!-- Card Body -->
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ $doctor->nama_dokter }}</h5>
+                                    <p class="card-text text-muted">{{ $doctor->layanan->nama_layanan }}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team3.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Maria Smith</a></h3>
-                                <span>Agency Manager</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team1.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Angela Doe</a></h3>
-                                <span>Designer</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -644,8 +614,8 @@
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-number mb-50">
-                                    <h4><span>+62 </span>85 257 625 557</h4>
-                                    <p>youremail@gmail.com</p>
+                                    <h4>(0358) 32111</h4>
+                                    <p>pertanian@nganjukkab.go.id.</p>
                                 </div>
                                 <!-- Form -->
                                 <div class="footer-form">
