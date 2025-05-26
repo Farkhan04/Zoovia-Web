@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
 use App\Models\Dokter;
+use App\Models\Layanan;
 use Illuminate\Support\Facades\Log;
 
 class LandingController extends Controller
@@ -28,9 +29,10 @@ class LandingController extends Controller
 
             // Get all doctors data
             $doctors = Dokter::all();
+            $layanan = Layanan::all();
 
             // Return the landing page view with articles and doctors data
-            return view('Landing.index', compact('artikels', 'total_articles', 'doctors'));
+            return view('Landing.index', compact('artikels', 'total_articles', 'doctors', 'layanan'));
 
         } catch (\Exception $e) {
             Log::error('Error loading landing page: ' . $e->getMessage());
@@ -111,7 +113,10 @@ class LandingController extends Controller
      */
     public function about()
     {
-        return view('Landing.about');
+         $doctors = Dokter::all();
+
+        // Return the landing page view with articles and doctors data
+        return view('Landing.about', compact('doctors'));
     }
 
     /**
@@ -121,7 +126,12 @@ class LandingController extends Controller
      */
     public function doctors()
     {
-        return view('Landing.doctor');
+        // Get all doctors data
+        $doctors = Dokter::all();
+
+        // Return the landing page view with articles and doctors data
+        return view('Landing.doctor', compact('doctors'));
+
     }
 
     /**
@@ -131,6 +141,9 @@ class LandingController extends Controller
      */
     public function services()
     {
-        return view('Landing.pelayanan');
+        $layanan = Layanan::all();
+
+        // Kirim data layanan ke tampilan
+        return view('Landing.pelayanan', compact('layanan'));
     }
 }

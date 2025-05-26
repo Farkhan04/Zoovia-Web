@@ -48,8 +48,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-md-1">
                             <div class="logo">
-                                <a href="index"><img src="{{ 'Landing/assets/img/logo/logozoovia.png' }}"
-                                        alt=""></a>
+                                <a href="index"><img src="{{ 'Landing/assets/img/logo/logozoovia.png' }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-10 col-lg-10 col-md-10">
@@ -60,7 +59,7 @@
                                         <ul id="navigation">
                                             <li><a href="index">Home</a></li>
                                             <li><a href="#">About</a></li>
-                                            <li><a href="dokter">Doctors</a></li>
+                                            <li><a href="dokter">Dokter</a></li>
                                             <li><a href="pelayanan">Pelayanan</a></li>
 
                                         </ul>
@@ -97,45 +96,6 @@
             </div>
         </div>
         <!-- Hero End -->
-        <!--? About Start-->
-        <div class="about-area section-padding2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-10">
-                        <div class="about-caption mb-50">
-                            <!-- Section Tittle -->
-                            <div class="section-tittle section-tittle2 mb-35">
-                                <span>Zoovia</span>
-                                <h2>Selamat Datang di Zoovia</h2>
-                            </div>
-                            <p>Puskeswan Zoovia adalah klinik kesehatan hewan yang berkomitmen untuk memberikan
-                                pelayanan terbaik untuk hewan peliharaan Anda. Kami memiliki tenaga medis yang
-                                profesional dan fasilitas yang memadai untuk menangani berbagai kondisi kesehatan hewan.
-                            </p>
-                            <div class="about-btn1 mb-30">
-                                <a href="about.html" class="btn about-btn">Temukan Dokter .<i
-                                        class="ti-arrow-right"></i></a>
-                            </div>
-                            <div class="about-btn1 mb-30">
-                                <a href="about.html" class="btn about-btn2">Jadwal <i class="ti-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <!-- about-img -->
-                        <div class="about-img ">
-                            <div class="about-font-img d-none d-lg-block">
-                                <img src="{{ 'Landing/assets/img/gallery/about2.png' }}" alt="">
-                            </div>
-                            <div class="about-back-img ">
-                                <img src="{{ 'Landing/assets/img/gallery/about1.png' }}" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About  End-->
 
         <!--? Gallery Area Start -->
         <div class="gallery-area section-padding30">
@@ -156,22 +116,19 @@
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url({{"Landing/assets/img/gallery/gallery1.png"}});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri1.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{"Landing/assets/img/gallery/gallery2.png"}});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri2.jpg);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{"Landing/assets/img/gallery/gallery3.png"}});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri3.webp);"></div>
                                 </div>
                             </div>
                         </div>
@@ -182,22 +139,19 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{ 'Landing/assets/img/gallery/gallery4.png' }});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri4.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img small-img"
-                                        style="background-image: url({{"Landing/assets/img/gallery/gallery5.png"}});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri5.webp);"></div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="single-gallery mb-30">
                                     <div class="gallery-img big-img"
-                                        style="background-image: url({{"Landing/assets/img/gallery/gallery6.png"}});">
-                                    </div>
+                                        style="background-image: url(Landing/assets/img/gallery/galeri6.jpg);"></div>
                                 </div>
                             </div>
                         </div>
@@ -270,72 +224,34 @@
         <!-- gallery Products End -->
         <!--? Team Start -->
         <div class="team-area section-padding30">
-            <div class="container">
+            <div class="container" id="dokter-section">
                 <!-- Section Tittle -->
                 <div class="row justify-content-center">
                     <div class="col-lg-6">
                         <div class="section-tittle text-center mb-100">
-                            <span>Dokter </span>
+                            <span>Dokter Kami</span>
                             <h2>Spesialis Kami</h2>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <!-- single Tem -->
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team2.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Alvin Maxwell</a></h3>
-                                <span>Creative UI Designer</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                <!-- Display doctors data -->
+                <div class="doctors d-flex flex-row flex-wrap">
+                    @foreach($doctors as $doctor)
+                        <div class="col-md-4 col-sm-6 mb-4">
+                            <!-- Doctor Card -->
+                            <div class="card">
+                                <!-- Card Image -->
+                                <img src="{{ asset('storage/' . $doctor->foto_dokter) }}" alt="{{ $doctor->nama_dokter }}"
+                                    class="card-img-top" style="max-height: 250px; object-fit: cover;">
+
+                                <!-- Card Body -->
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ $doctor->nama_dokter }}</h5>
+                                    <p class="card-text text-muted">{{ $doctor->layanan->nama_layanan }}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team3.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Maria Smith</a></h3>
-                                <span>Agency Manager</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                        <div class="single-team mb-30">
-                            <div class="team-img">
-                                <img src="{{ 'Landing/assets/img/gallery/team1.png' }}" alt="">
-                            </div>
-                            <div class="team-caption">
-                                <h3><a href="#">Angela Doe</a></h3>
-                                <span>Designer</span>
-                                <!-- Team social -->
-                                <div class="team-social">
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fas fa-globe"></i></a>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -351,8 +267,7 @@
                             <div class="single-footer-caption mb-50">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index"><img
-                                            src="{{ 'Landing/assets/img/logo/logozoovia_footer.png' }}"
+                                    <a href="index"><img src="{{ 'Landing/assets/img/logo/logozoovia_footer.png' }}"
                                             alt=""></a>
                                 </div>
                             </div>
@@ -389,8 +304,8 @@
                                     Copyright &copy;
                                     <script>
                                         document.write(new Date().getFullYear());
-                                    </script> All rights reserved | This template is made with <i
-                                        class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                    </script> All rights reserved | This template is made with <i class="fa fa-heart"
+                                        aria-hidden="true"></i> by <a href="https://colorlib.com"
                                         target="_blank">Colorlib</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>

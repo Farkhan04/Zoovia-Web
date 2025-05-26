@@ -59,7 +59,7 @@
                                         <ul id="navigation">
                                             <li><a href="#">Home</a></li>
                                             <li><a href="about">About</a></li>
-                                            <li><a href="dokter">Doctors</a></li>
+                                            <li><a href="dokter">Dokter</a></li>
                                             <li><a href="pelayanan">Pelayanan</a></li>
                                         </ul>
                                     </nav>
@@ -195,114 +195,44 @@
                     <div class="col-lg-12">
                         <div class="depart_ment_tab mb-30">
                             <!-- Tabs Buttons -->
-                            <ul class="nav" id="myTab" role="tablist" style="padding-left: 0; margin-bottom: 0;">
-                                <li class="nav-item" style="margin-right: 5px;">
-                                    <!-- Menambahkan margin sedikit untuk jarak antar tab -->
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                                        aria-controls="profile" aria-selected="false" style="padding: 8px 15px;">
-                                        <i class="flaticon-cardiovascular"></i>
-                                        <h4 style="margin-bottom: 0;">Pemeriksaan Darurat</h4>
-                                    </a>
-                                </li>
-                                <li class="nav-item" style="margin-right: 5px;">
-                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                                        aria-controls="contact" aria-selected="false" style="padding: 8px 15px;">
-                                        <i class="flaticon-ear"></i>
-                                        <h4 style="margin-bottom: 0;">Konsultasi Medis</h4>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="Blood-tab" data-toggle="tab" href="#Blood" role="tab"
-                                        aria-controls="contact" aria-selected="false" style="padding: 8px 15px;">
-                                        <i class="flaticon-cell"></i>
-                                        <h4 style="margin-bottom: 0;">Perawatan Kesehatan</h4>
-                                    </a>
-                                </li>
+                            <ul class="nav" id="myTab" role="tablist">
+                                @foreach($layanan as $service)
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="service-{{ $service->id }}-tab" data-toggle="tab"
+                                            href="#service-{{ $service->id }}" role="tab"
+                                            aria-controls="service-{{ $service->id }}" aria-selected="false">
+                                            <i class="{{ $service->icon }}"></i>
+                                            <h4>{{ $service->nama_layanan }}</h4>
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
-
                 <div class="dept_main_info white-bg">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            <!-- single_content  -->
-                            <div class="row align-items-center no-gutters">
-                                <div class="col-lg-7">
-                                    <div class="dept_info">
-                                        <h3>Pelayanan Terbaik</h3>
-                                        <p>Puskeswan kami menyediakan berbagai layanan kesehatan hewan, termasuk
-                                            Pemeriksaan Darurat, Konsultasi Medis, dan Perawatan Kesehatan. Kami selalu
-                                            berkomitmen untuk memberikan pelayanan terbaik dengan perhatian penuh
-                                            terhadap kesejahteraan hewan Anda. </p>
-                                        <a href="#"></i></a>
+                        @foreach($layanan as $index => $service)
+                            <div class="tab-pane fade @if($index == 1) show active @endif" id="service-{{ $service->id }}"
+                                role="tabpanel" aria-labelledby="service-{{ $service->id }}-tab">
+                                <!-- single_content  -->
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col-lg-7">
+                                        <div class="dept_info">
+                                            <h3>{{ $service->nama_layanan }}</h3>
+                                            <p>{{ $service->deskripsi_layanan }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="dept_thumb">
+                                            <img src="{{ asset('storage/' . $service->foto_layanan) }}"
+                                                alt="{{ $service->nama_layanan }}">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-5">
-                                    <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
-                                    </div>
-                                </div>
+                                <!-- single_content  -->
                             </div>
-                            <!-- single_content  -->
-                        </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                            <!-- single_content  -->
-                            <div class="row align-items-center no-gutters">
-                                <div class="col-lg-7">
-                                    <div class="dept_info">
-                                        <h3>Pemeriksaan Darurat</h3>
-                                        <p>Pelayanan darurat untuk hewan peliharaan yang membutuhkan penanganan segera
-                                            dari tenaga medis yang terlatih. </p>
-                                        <a href="#"></i></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single_content  -->
-                        </div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <!-- single_content  -->
-                            <div class="row align-items-center no-gutters">
-                                <div class="col-lg-7">
-                                    <div class="dept_info">
-                                        <h3>Konsultasi Medis</h3>
-                                        <p>Layanan konsultasi dengan dokter hewan berpengalaman untuk memberikan solusi
-                                            terbaik bagi masalah kesehatan hewan Anda.</p>
-                                        <a href="#"></i></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single_content  -->
-                        </div>
-                        <div class="tab-pane fade" id="Blood" role="tabpanel" aria-labelledby="Blood-tab">
-                            <!-- single_content  -->
-                            <div class="row align-items-center no-gutters">
-                                <div class="col-lg-7">
-                                    <div class="dept_info">
-                                        <h3>Perawatan Kesehatan</h3>
-                                        <p>Perawatan rutin dan vaksinasi untuk menjaga kesehatan hewan peliharaan Anda
-                                            agar tetap prima. </p>
-                                        <a href="#"></i></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="dept_thumb">
-                                        <img src="{{ 'Landing/assets/img/gallery/layanan-kami.jpeg' }}" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single_content  -->
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
