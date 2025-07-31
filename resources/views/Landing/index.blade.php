@@ -99,7 +99,7 @@
                                     </h1>
                                     <p data-animation="fadeInLeft" data-delay="0.1s">Aplikasi Zoovia siap membantu
                                         proses pelayanan medis terbaik untuk hewan peliharaan Anda.</p>
-                                    <a href="#" class="btn hero-btn" data-animation="fadeInLeft"
+                                    <a href="{{ asset('downloads/base.apk') }}" class="btn hero-btn" data-animation="fadeInLeft"
                                         data-delay="0.5s">Download APK <i class="ti-arrow-right"></i></a>
                                 </div>
                             </div>
